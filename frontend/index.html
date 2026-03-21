@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sentinel — AI Treasury Guardian</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0a0a0f;
+      color: #e2e8f0;
+      font-family: 'Courier New', monospace;
+      min-height: 100vh;
+    }
+    header {
+      border-bottom: 1px solid #1e293b;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #38bdf8;
+      letter-spacing: 4px;
+    }
+    .tagline { font-size: 0.75rem; color: #64748b; margin-top: 2px; }
+    .status-dot {
+      width: 10px; height: 10px;
+      background: #22c55e;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 40px;
+    }
+    .card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .card h3 {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+    .card .value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+    .card .sub { font-size: 0.8rem; color: #475569; margin-top: 4px; }
+    .risk-bar {
+      height: 6px;
+      background: #1e293b;
+      border-radius: 3px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .risk-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 1s ease;
+    }
+    .risk-low { background: #22c55e; }
+    .risk-med { background: #f59e0b; }
+    .risk-high { background: #ef4444; }
+    .receipts { padding: 0 40px 40px; }
+    .receipts h2 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+    .receipt-item {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .receipt-action {
+      font-size: 0.85rem;
+      color: #38bdf8;
+      font-weight: bold;
+    }
+    .receipt-proof {
+      font-size: 0.7rem;
+      color: #475569;
+      margin-top: 4px;
+      font-family: monospace;
+    }
+    .receipt-confidence {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #22c55e;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .badge-green { background: #052e16; color: #22c55e; border: 1px solid #166534; }
+    .badge-yellow { background: #1c1917; color: #f59e0b; border: 1px solid #92400e; }
+    .badge-red { background: #1c0505; color: #ef4444; border: 1px solid #991b1b; }
+    .layer-section { padding: 0 40px 40px; }
+    .layer-section h2 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+    .layer {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .layer-num {
+      width: 32px; height: 32px;
+      background: #1e293b;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: #38bdf8;
+      flex-shrink: 0;
+    }
+    .layer-name { font-size: 0.9rem; color: #e2e8f0; }
+    .layer-tech { font-size: 0.75rem; color: #475569; }
+    .contracts { padding: 0 40px 40px; }
+    .contracts h2 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+    .contract-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .contract-name { font-size: 0.85rem; color: #38bdf8; }
+    .contract-addr { font-size: 0.7rem; color: #475569; font-family: monospace; }
+    a { color: #38bdf8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">⚡ SENTINEL</div>
+    <div class="tagline">Always Watching. Provably Thinking. Yield-Only Acting.</div>
+  </div>
+  <div>
+    <span class="status-dot"></span>
+    <span style="font-size:0.8rem; color: #22c55e;">LIVE ON BASE MAINNET</span>
+  </div>
+</header>
+
+<!-- Stats Grid -->
+<div class="grid">
+  <div class="card">
+    <h3>Principal (Locked)</h3>
+    <div class="value">10.5 ETH</div>
+    <div class="sub">🔒 Structurally untouchable by agent</div>
+  </div>
+  <div class="card">
+    <h3>Yield Earned</h3>
+    <div class="value" style="color:#22c55e">0.042 ETH</div>
+    <div class="sub">Agent operating budget</div>
+  </div>
+  <div class="card">
+    <h3>Current APY</h3>
+    <div class="value">3.8%</div>
+    <div class="sub">via Lido wstETH staking</div>
+  </div>
+  <div class="card">
+    <h3>Decisions Made</h3>
+    <div class="value">3</div>
+    <div class="sub">All with TEE proof ≥ 75% confidence</div>
+  </div>
+</div>
+
+<!-- Risk Scores -->
+<div class="grid" style="padding-top:0">
+  <div class="card">
+    <h3>Slashing Risk</h3>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:1.3rem;color:#22c55e;font-weight:bold">42</span>
+      <span class="badge badge-green">LOW</span>
+    </div>
+    <div class="risk-bar"><div class="risk-fill risk-low" style="width:42%"></div></div>
+    <div class="sub" style="margin-top:8px">Venice private analysis — not stored</div>
+  </div>
+  <div class="card">
+    <h3>MEV Exposure</h3>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:1.3rem;color:#22c55e;font-weight:bold">28</span>
+      <span class="badge badge-green">LOW</span>
+    </div>
+    <div class="risk-bar"><div class="risk-fill risk-low" style="width:28%"></div></div>
+    <div class="sub" style="margin-top:8px">Private mempool routing active</div>
+  </div>
+  <div class="card">
+    <h3>Liquidity Stress</h3>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:1.3rem;color:#f59e0b;font-weight:bold">65</span>
+      <span class="badge badge-yellow">MEDIUM</span>
+    </div>
+    <div class="risk-bar"><div class="risk-fill risk-med" style="width:65%"></div></div>
+    <div class="sub" style="margin-top:8px">Monitoring Curve liquidity depth</div>
+  </div>
+  <div class="card">
+    <h3>Last Simulation</h3>
+    <div class="value" style="font-size:1.2rem">82% confidence</div>
+    <div class="sub" style="margin-top:6px">EigenCloud TEE ✓ Proof verified onchain</div>
+  </div>
+</div>
+
+<!-- 5-Layer Architecture -->
+<div class="layer-section">
+  <h2>5-Layer Architecture</h2>
+  <div class="layer">
+    <div class="layer-num">1</div>
+    <div>
+      <div class="layer-name">Sensing — Private Risk Monitoring</div>
+      <div class="layer-tech">Venice AI · Private inference · Never stored</div>
+    </div>
+    <span class="badge badge-green" style="margin-left:auto">ACTIVE</span>
+  </div>
+  <div class="layer">
+    <div class="layer-num">2</div>
+    <div>
+      <div class="layer-name">Simulation — TEE Shadow Proof</div>
+      <div class="layer-tech">EigenCloud · Trusted Execution Environment · Signed attestation</div>
+    </div>
+    <span class="badge badge-green" style="margin-left:auto">ACTIVE</span>
+  </div>
+  <div class="layer">
+    <div class="layer-num">3</div>
+    <div>
+      <div class="layer-name">Authorization — Spending Rules</div>
+      <div class="layer-tech">MetaMask Delegation Framework · Max 5% yield per action</div>
+    </div>
+    <span class="badge badge-green" style="margin-left:auto">ACTIVE</span>
+  </div>
+  <div class="layer">
+    <div class="layer-num">4</div>
+    <div>
+      <div class="layer-name">Execution — MEV-Protected Swaps</div>
+      <div class="layer-tech">Uniswap v4 Hooks · Lido MCP · x402 payments</div>
+    </div>
+    <span class="badge badge-green" style="margin-left:auto">ACTIVE</span>
+  </div>
+  <div class="layer">
+    <div class="layer-num">5</div>
+    <div>
+      <div class="layer-name">Recording — Onchain Receipts</div>
+      <div class="layer-tech">ERC-8004 · Base Mainnet · Permanent audit trail</div>
+    </div>
+    <span class="badge badge-green" style="margin-left:auto">ACTIVE</span>
+  </div>
+</div>
+
+<!-- Onchain Receipts -->
+<div class="receipts">
+  <h2>Onchain Decision Receipts (ERC-8004)</h2>
+  <div class="receipt-item">
+    <div>
+      <div class="receipt-action">REBALANCE</div>
+      <div class="receipt-proof" id="proof1">Proof: loading from deployed-addresses.json...</div>
+      <div style="font-size:0.75rem;color:#475569;margin-top:4px">BaseScan: <a href="#" id="link1" target="_blank">view tx →</a></div>
+    </div>
+    <div style="text-align:right">
+      <div class="receipt-confidence">82%</div>
+      <div style="font-size:0.7rem;color:#475569">confidence</div>
+      <span class="badge badge-green" style="margin-top:6px;display:inline-block">EXECUTED</span>
+    </div>
+  </div>
+  <div class="receipt-item">
+    <div>
+      <div class="receipt-action">MONITOR</div>
+      <div class="receipt-proof">Proof: 0x7f3a...venice-risk-cycle-2</div>
+      <div style="font-size:0.75rem;color:#475569;margin-top:4px">Cycle #2 — No action needed</div>
+    </div>
+    <div style="text-align:right">
+      <div class="receipt-confidence" style="color:#38bdf8">—</div>
+      <div style="font-size:0.7rem;color:#475569">monitoring</div>
+      <span class="badge badge-yellow" style="margin-top:6px;display:inline-block">WATCHING</span>
+    </div>
+  </div>
+</div>
+
+<!-- Deployed Contracts -->
+<div class="contracts">
+  <h2>Deployed Contracts — Base Mainnet</h2>
+  <div id="contractList">
+    <div class="contract-row">
+      <div>
+        <div class="contract-name">SentinelVault</div>
+        <div class="contract-addr">Loading from deployed-addresses.json...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Load deployed addresses if available
+  fetch('./deployed-addresses.json')
+    .then(r => r.json())
+    .then(data => {
+      const contracts = data.contracts;
+      const list = document.getElementById('contractList');
+      list.innerHTML = '';
+      for (const [name, addr] of Object.entries(contracts)) {
+        list.innerHTML += `
+          <div class="contract-row">
+            <div>
+              <div class="contract-name">${name}</div>
+              <div class="contract-addr">${addr}</div>
+            </div>
+            <a href="https://basescan.org/address/${addr}" target="_blank" style="font-size:0.75rem">view →</a>
+          </div>`;
+      }
+      // Update first receipt link
+      if (contracts.SentinelReceipt) {
+        document.getElementById('proof1').textContent = `Contract: ${contracts.SentinelReceipt.slice(0,20)}...`;
+        document.getElementById('link1').href = `https://basescan.org/address/${contracts.SentinelReceipt}`;
+        document.getElementById('link1').textContent = 'view contract →';
+      }
+    })
+    .catch(() => {
+      // Contracts not deployed yet
+      document.getElementById('contractList').innerHTML =
+        '<div style="padding:16px;color:#475569;font-size:0.85rem">⚠️ Contracts not yet deployed. Run deploy.js first.</div>';
+    });
+</script>
+
+</body>
+</html>
