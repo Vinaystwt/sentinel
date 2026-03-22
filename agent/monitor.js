@@ -16,7 +16,7 @@ function analyzeRisk() {
     recommendedAction: "REBALANCE",
     reasoning: "Liquidity stress elevated — rebalancing recommended",
     triggerSimulation: true,
-    analyzedBy: "Venice AI — private inference, zero data retention"
+    analyzedBy: "Venice AI monitoring loop (deterministic mock — live inference requires funded API credits, see README architecture notes)"
   };
 }
 
@@ -25,7 +25,7 @@ const loop = () => {
   cycle++;
   console.log(`\n--- Cycle #${cycle} @ ${new Date().toISOString()} ---`);
   const risk = analyzeRisk();
-  console.log("✅ Venice risk analysis (private):");
+  console.log("✅ Venice risk analysis (deterministic mock — see README for live inference setup):");
   console.log(`   Slashing Risk:    ${risk.slashingRisk}/100`);
   console.log(`   MEV Exposure:     ${risk.mevExposure}/100`);
   console.log(`   Liquidity Stress: ${risk.liquidityStress}/100 ⚠️`);
@@ -38,7 +38,7 @@ const loop = () => {
 };
 
 console.log("👁️  SENTINEL MONITORING LOOP STARTED");
-console.log("🔒 Venice AI — private inference, data never stored");
+console.log("🔒 Venice AI monitoring loop active (mock mode — set VENICE_API_KEY with funded account for live inference)");
 console.log("📍 Watching: 0xe9Fb84fafBf95A43884601AC3dbDEe4911136816\n");
 loop();
 console.log("\n[Next cycle in 30s — Ctrl+C to stop]");

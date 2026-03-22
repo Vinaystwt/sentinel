@@ -63,7 +63,7 @@
       "step": 6,
       "action": "VENICE_MONITORING_LOOP",
       "timestamp": "2026-03-21T18:00:00Z",
-      "tool": "Venice AI private inference",
+      "tool": "Venice AI monitoring loop (deterministic mock \u2014 live inference requires funded API credits, see README architecture notes)",
       "input": "stETH position data, validator metrics, mempool patterns",
       "output": "Risk scores: slashing=12, MEV=34, liquidity=28, yieldGap=45bps",
       "decision": "No threshold breached, continue monitoring",
@@ -114,7 +114,7 @@
     },
     {
       "step": 11,
-      "action": "Real Uniswap ETH→USDC Swap + Shadow Proof Registration",
+      "action": "Real Uniswap ETH\u2192USDC Swap + Shadow Proof Registration",
       "network": "base-mainnet",
       "swapRouter": "0x2626664c2603336E57B271c5C0b26F421741e481",
       "amountIn": "0.0001 ETH",
@@ -128,12 +128,12 @@
     }
   ],
   "guardrails": [
-    "Principal structurally untouchable — SentinelVault blocks principal withdrawal at contract level",
-    "TEE proof required — SentinelSwapHook reverts any swap without valid shadow proof",
-    "Spending limits — SentinelDelegation enforces max 5% yield per action",
-    "Counterparty whitelist — only approved Uniswap pool addresses allowed",
-    "Confidence threshold — minimum 75/100 required before any execution",
-    "Proof expiry — shadow proofs older than 10 minutes are rejected"
+    "Principal structurally untouchable \u2014 SentinelVault blocks principal withdrawal at contract level",
+    "TEE proof required \u2014 SentinelSwapHook reverts any swap without valid shadow proof",
+    "Spending limits \u2014 SentinelDelegation enforces max 5% yield per action",
+    "Counterparty whitelist \u2014 only approved Uniswap pool addresses allowed",
+    "Confidence threshold \u2014 minimum 75/100 required before any execution",
+    "Proof expiry \u2014 shadow proofs older than 10 minutes are rejected"
   ],
   "computeBudget": {
     "yieldOnlySpending": true,
