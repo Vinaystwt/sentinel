@@ -4,17 +4,21 @@ dotenv.config();
 
 export default {
   solidity: {
-    version: "0.8.20",
+    version: "0.8.28",
     settings: {
-      optimizer: { enabled: true, runs: 200 },
+      optimizer: { enabled: false },
+      evmVersion: "cancun",
     },
   },
   networks: {
     base: {
-      url: process.env.ALCHEMY_BASE_URL,
+      url: process.env.ALCHEMY_URL,
       accounts: [`0x${process.env.PRIVATE_KEY}`],
       chainId: 8453,
     },
+  },
+  paths: {
+    tests: "./test",
   },
   etherscan: {
     apiKey: {
