@@ -1,13 +1,13 @@
 {
-  "proofHash": "0x082ebb9fd9f94027fb439b48082070111e5d57296ed4ae52789d244866753ba8",
+  "proofHash": "0x0adbba53691a6f37bedd6347555fb48de7492b49588f4146edc8e19e46e97b00",
   "confidenceScore": 82,
   "recommendation": "EXECUTE",
-  "timestamp": "2026-03-21T20:19:49.919Z",
+  "timestamp": "2026-03-22T09:20:07.014Z",
   "teeAttestation": {
     "version": "eigencloud-v1.0",
     "hardwareVerified": true,
-    "simulationHash": "0x082ebb9fd9f94027fb439b48082070111e5d57296ed4ae52789d244866753ba8",
-    "signedAt": 1774124389920
+    "simulationHash": "0x0adbba53691a6f37bedd6347555fb48de7492b49588f4146edc8e19e46e97b00",
+    "signedAt": 1774171207016
   },
   "strategyHash": "7b3f1f249e16f075d3525138ac1756ec90e0767af8dba8165e8aec2c54e35e6b",
   "approved": true

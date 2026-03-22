@@ -39,7 +39,7 @@ const loop = () => {
 
 console.log("👁️  SENTINEL MONITORING LOOP STARTED");
 console.log("🔒 Venice AI — private inference, data never stored");
-console.log("📍 Watching: 0x11A14402B0dF1d90A631c795A27f164b9AfE2Dc6\n");
+console.log("📍 Watching: 0xe9Fb84fafBf95A43884601AC3dbDEe4911136816\n");
 loop();
 console.log("\n[Next cycle in 30s — Ctrl+C to stop]");
 setInterval(loop, 30000);
