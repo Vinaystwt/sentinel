@@ -1,11 +1,11 @@
 {
   "network": "base-mainnet",
-  "deployer": "0x11A14402B0dF1d90A631c795A27f164b9AfE2Dc6",
-  "timestamp": "2026-03-21T20:07:13.670Z",
+  "deployer": "0xe9Fb84fafBf95A43884601AC3dbDEe4911136816",
+  "timestamp": "2026-03-22T06:10:48.451Z",
   "contracts": {
-    "SentinelVault": "0x071135a8dc44b459243b625d243a0d25b3e67813",
-    "SentinelDelegation": "0x7edf531a809d4dcef5209d27f2ebaa457175d823",
-    "SentinelReceipt": "0x4476eb84c434ceb2f8de049075a0b23690f7d5d0",
-    "SentinelSwapHook": "0xff2b3ebb990317e0b15775ad89c865f063586063"
+    "SentinelVault": "0xa7ecd19963abcbd8ee8df55b97f6a25ab80bc34a",
+    "SentinelDelegation": "0x9317b43be52a3159489073853c2adb2ee4960013",
+    "SentinelReceipt": "0x1a20d875822fe026c3388b4780ab34fe29e7855b",
+    "SentinelSwapHook": "0x94f02cc3954a4c3322afb14741d4e7d2a89f7871"
   }
 }
