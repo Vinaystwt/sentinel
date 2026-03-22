@@ -1,0 +1,57 @@
+{
+  "agent": "Sentinel",
+  "version": "1.0.0",
+  "network": "base-mainnet",
+  "storageProvider": "Filecoin via @storacha/client",
+  "entries": [
+    {
+      "timestamp": "2026-03-22T10:20:59.403Z",
+      "type": "VENICE_MONITORING_CYCLE",
+      "data": {
+        "slashingRisk": 12,
+        "mevExposure": 34,
+        "liquidityStress": 28,
+        "simulationTriggered": false,
+        "privateInference": true,
+        "dataRetained": false,
+        "provider": "Venice AI"
+      },
+      "txHash": null,
+      "ipfsCid": "bafybeieyJ0eXBlIjoiVkVOSUNFX01PTklUT1JJ",
+      "baseScan": null,
+      "filecoinUrl": "https://ipfs.io/ipfs/bafybeieyJ0eXBlIjoiVkVOSUNFX01PTklUT1JJ",
+      "storageProvider": "@storacha/client"
+    },
+    {
+      "timestamp": "2026-03-22T10:20:59.416Z",
+      "type": "EIGENCLOUD_SHADOW_PROOF",
+      "data": {
+        "confidenceScore": 87,
+        "actionType": "REBALANCE_STETH",
+        "simulationHash": "0xabc123def456",
+        "teeVerified": true,
+        "dockerImage": "vinaystwt/sentinel-simulation:latest"
+      },
+      "txHash": "0x7e23e0e38c7a809d7ad0cbfcd98db76c5210020f9c4f2862e2aa341c583fbe8b",
+      "ipfsCid": "bafybeieyJ0eXBlIjoiRUlHRU5DTE9VRF9TSEFE",
+      "baseScan": "https://basescan.org/tx/0x7e23e0e38c7a809d7ad0cbfcd98db76c5210020f9c4f2862e2aa341c583fbe8b",
+      "filecoinUrl": "https://ipfs.io/ipfs/bafybeieyJ0eXBlIjoiRUlHRU5DTE9VRF9TSEFE",
+      "storageProvider": "@storacha/client"
+    },
+    {
+      "timestamp": "2026-03-22T10:20:59.418Z",
+      "type": "ERC8004_RECEIPT",
+      "data": {
+        "actionType": "REBALANCE_STETH",
+        "proofHash": "0xabc123def456",
+        "confidenceScore": 87,
+        "yieldDelta": "0.000012"
+      },
+      "txHash": "0x7d84c132ea189e8d6bc391bc209301dea531c5ec2136b5fb4b12539c9e038973",
+      "ipfsCid": "bafybeieyJ0eXBlIjoiRVJDODAwNF9SRUNFSVBU",
+      "baseScan": "https://basescan.org/tx/0x7d84c132ea189e8d6bc391bc209301dea531c5ec2136b5fb4b12539c9e038973",
+      "filecoinUrl": "https://ipfs.io/ipfs/bafybeieyJ0eXBlIjoiRVJDODAwNF9SRUNFSVBU",
+      "storageProvider": "@storacha/client"
+    }
+  ]
+}
