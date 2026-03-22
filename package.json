@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "hardhat test"
+    "test": "node test-basic.js"
   },
   "keywords": [],
   "author": "vinay",
