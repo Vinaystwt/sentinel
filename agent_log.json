@@ -98,6 +98,19 @@
       "txHash": "0x8749eda734873517affb0e16941d19be0d26cfeb6e1b78d3a2bb75088330a86a",
       "baseScan": "https://basescan.org/tx/0x8749eda734873517affb0e16941d19be0d26cfeb6e1b78d3a2bb75088330a86a",
       "block": "43701470"
+    },
+    {
+      "step": 10,
+      "action": "EIP-7715 Delegation Hash Registered Onchain",
+      "network": "base-mainnet",
+      "contract": "0xa7a33dd5f34a397b214a1563e2ad8aaa93a39e1b",
+      "delegationHash": "0x679521698e6fbee223895217ef9ec1a63116c53202eabda913c84adffb6640f7",
+      "delegator": "0xe9Fb84fafBf95A43884601AC3dbDEe4911136816",
+      "delegate": "0xe9Fb84fafBf95A43884601AC3dbDEe4911136816",
+      "caveats": "AllowedTargets:UniswapV3,ValueLte:5pctYield,ActionTypes:SWAP|STAKE|UNSTAKE",
+      "txHash": "0x876a7f41167ad43b63c143bc5c7deaecdb32516d4f774836ec3ce94468770a16",
+      "baseScan": "https://basescan.org/tx/0x876a7f41167ad43b63c143bc5c7deaecdb32516d4f774836ec3ce94468770a16",
+      "block": "43703328"
     }
   ],
   "guardrails": [
