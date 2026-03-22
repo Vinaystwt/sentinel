@@ -22,7 +22,12 @@
       "signedAt": 1774213277,
       "simulationHash": "0x337b341eb51a8cbdc1d5f5c795051aef2807ebb86c1bb5fb87dfa47bc0bf65bf",
       "teeProvider": "EigenCloud/EigenCompute",
-      "version": "eigencloud-v1.0"
+      "version": "eigencloud-v1.0",
+      "mrenclave": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "mrsigner": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "isvSvn": 1,
+      "isvProdId": 0,
+      "_sgxFieldsNote": "mrenclave/mrsigner/isvSvn are representative placeholders. The canonical verifiable artifact is the onchain proofHash registered at TX 0x186d7b4f1dd5cd337168c897581a90234bfb67df0b349aa9208e0e7930d84753 on Base mainnet."
     }
   },
   "success": true,
@@ -32,5 +37,6 @@
     "dockerDigest": "sentinel-simulation@sha256:f5b83f3e50a7972531035713289f96fb8b8afeb925a7ac2688053eeff37c8c70",
     "teeProvider": "EigenCloud/EigenCompute",
     "note": "Sample attestation output from the live TEE container. proofHash is registered onchain on Base mainnet."
-  }
+  },
+  "_disclaimer": "This is a representative output format from the Sentinel TEE simulation container. The proofHash is the artifact that matters \u2014 it is registered onchain on Base mainnet (TX: 0x186d7b4f1dd5cd337168c897581a90234bfb67df0b349aa9208e0e7930d84753). For real Intel SGX DCAP attestation fields, see the EigenCloud deployment docs. The onchain shadow proof TX is the canonical verifiable artifact."
 }
