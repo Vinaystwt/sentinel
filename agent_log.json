@@ -111,6 +111,20 @@
       "txHash": "0x876a7f41167ad43b63c143bc5c7deaecdb32516d4f774836ec3ce94468770a16",
       "baseScan": "https://basescan.org/tx/0x876a7f41167ad43b63c143bc5c7deaecdb32516d4f774836ec3ce94468770a16",
       "block": "43703328"
+    },
+    {
+      "step": 11,
+      "action": "Real Uniswap ETH→USDC Swap + Shadow Proof Registration",
+      "network": "base-mainnet",
+      "swapRouter": "0x2626664c2603336E57B271c5C0b26F421741e481",
+      "amountIn": "0.0001 ETH",
+      "tokenOut": "USDC",
+      "swapTxHash": "0xe8b337617cb337aa456b9576ba0e05dfd651aa9b51a940c9b00449b8ded3b9dd",
+      "swapBaseScan": "https://basescan.org/tx/0xe8b337617cb337aa456b9576ba0e05dfd651aa9b51a940c9b00449b8ded3b9dd",
+      "proofTxHash": "0x186d7b4f1dd5cd337168c897581a90234bfb67df0b349aa9208e0e7930d84753",
+      "proofBaseScan": "https://basescan.org/tx/0x186d7b4f1dd5cd337168c897581a90234bfb67df0b349aa9208e0e7930d84753",
+      "swapBlock": "43703380",
+      "proofBlock": "43703403"
     }
   ],
   "guardrails": [
