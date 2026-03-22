@@ -163,3 +163,21 @@ async function runFullCycle() {
 }
 
 runFullCycle();
+
+// LIDO INTEGRATION — runs after each monitoring cycle
+import { runLidoMonitoringAgent, getTreasuryPrimitive } from './lido-integration.js';
+
+async function runLidoCheck() {
+  try {
+    const report = await runLidoMonitoringAgent();
+    const treasury = await getTreasuryPrimitive();
+    console.log('[SENTINEL] Lido check complete:', report.recommendation);
+    console.log('[SENTINEL] Treasury primitive:', treasury.primitiveType);
+    return { report, treasury };
+  } catch (err) {
+    console.error('[SENTINEL] Lido check error:', err.message);
+  }
+}
+
+// Auto-run Lido check
+runLidoCheck();

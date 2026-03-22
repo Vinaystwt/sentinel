@@ -1,0 +1,44 @@
+{
+  "name": "Sentinel",
+  "version": "1.0.0",
+  "description": "Autonomous AI treasury guardian for DAOs. Monitors stETH risk privately, proves every decision with EigenCloud TEE shadow proofs, executes using only yield income.",
+  "operator": {
+    "wallet": "0xe9Fb84fafBf95A43884601AC3dbDEe4911136816",
+    "erc8004Identity": "0x1d8f6b43ac6a697f8f1a285e3b2ee40b499c5387764fa875e9bb9bb31b93a19d",
+    "registrationTx": "https://basescan.org/tx/0x1d8f6b43ac6a697f8f1a285e3b2ee40b499c5387764fa875e9bb9bb31b93a19d"
+  },
+  "tools": [
+    "venice-ai-private-inference",
+    "eigencloud-tee-simulation",
+    "lido-mcp-staking",
+    "uniswap-v4-hooks",
+    "metamask-delegation-framework",
+    "erc-8004-receipts",
+    "base-mainnet-viem"
+  ],
+  "techStack": ["Node.js", "Solidity", "Python", "Docker", "viem", "Hardhat"],
+  "computeConstraints": {
+    "maxActionsPerCycle": 1,
+    "yieldOnlyBudget": true,
+    "principalUntouchable": true,
+    "requiresTEEProof": true,
+    "minConfidenceScore": 75
+  },
+  "taskCategories": [
+    "treasury-risk-monitoring",
+    "yield-optimization",
+    "steth-position-management",
+    "autonomous-defi-execution"
+  ],
+  "deployedContracts": {
+    "network": "base-mainnet",
+    "SentinelVault": "0xa7ecd19963abcbd8ee8df55b97f6a25ab80bc34a",
+    "SentinelDelegation": "0x9317b43be52a3159489073853c2adb2ee4960013",
+    "SentinelReceipt": "0x1a20d875822fe026c3388b4780ab34fe29e7855b",
+    "SentinelSwapHook": "0x94f02cc3954a4c3322afb14741d4e7d2a89f7871"
+  },
+  "dockerImage": "vinaystwt/sentinel-simulation:latest",
+  "mcpEndpoints": {
+    "lido": "npx lido-mcp"
+  }
+}

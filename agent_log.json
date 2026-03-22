@@ -1,0 +1,106 @@
+{
+  "agent": "Sentinel",
+  "version": "1.0.0",
+  "hackathon": "The Synthesis 2026",
+  "executionLog": [
+    {
+      "step": 1,
+      "action": "REGISTER_IDENTITY",
+      "timestamp": "2026-03-21T08:00:00Z",
+      "tool": "synthesis-api",
+      "input": "POST /register/init with agent name Sentinel",
+      "output": "ERC-8004 identity created on Base mainnet",
+      "txHash": "0x1d8f6b43ac6a697f8f1a285e3b2ee40b499c5387764fa875e9bb9bb31b93a19d",
+      "status": "success"
+    },
+    {
+      "step": 2,
+      "action": "DEPLOY_CONTRACTS",
+      "timestamp": "2026-03-21T10:00:00Z",
+      "tool": "hardhat + viem",
+      "input": "Deploy SentinelVault, SentinelDelegation, SentinelReceipt, SentinelSwapHook to Base mainnet",
+      "output": "4 contracts deployed and verified",
+      "contracts": {
+        "SentinelVault": "0xa7ecd19963abcbd8ee8df55b97f6a25ab80bc34a",
+        "SentinelDelegation": "0x9317b43be52a3159489073853c2adb2ee4960013",
+        "SentinelReceipt": "0x1a20d875822fe026c3388b4780ab34fe29e7855b",
+        "SentinelSwapHook": "0x94f02cc3954a4c3322afb14741d4e7d2a89f7871"
+      },
+      "status": "success"
+    },
+    {
+      "step": 3,
+      "action": "BUILD_TEE_SIMULATION",
+      "timestamp": "2026-03-21T14:00:00Z",
+      "tool": "Docker + EigenCloud",
+      "input": "Build simulation container: accepts {action_type, position_data, market_context}",
+      "output": "Docker image pushed to vinaystwt/sentinel-simulation:latest",
+      "dockerHub": "https://hub.docker.com/r/vinaystwt/sentinel-simulation",
+      "status": "success"
+    },
+    {
+      "step": 4,
+      "action": "REGISTER_SHADOW_PROOF",
+      "timestamp": "2026-03-21T16:00:00Z",
+      "tool": "SentinelSwapHook.registerProof()",
+      "input": "TEE simulation output: confidence=87, action=REBALANCE_STETH",
+      "output": "Shadow proof hash registered onchain",
+      "txHash": "0x7e23e0e38c7a809d7ad0cbfcd98db76c5210020f9c4f2862e2aa341c583fbe8b",
+      "decision": "confidence 87 >= threshold 75, proceeding to execution",
+      "status": "success"
+    },
+    {
+      "step": 5,
+      "action": "WRITE_ERC8004_RECEIPT",
+      "timestamp": "2026-03-21T16:05:00Z",
+      "tool": "SentinelReceipt.writeReceipt()",
+      "input": "Action: REBALANCE_STETH, proof hash, confidence score, yield delta",
+      "output": "ERC-8004 receipt written to Base mainnet permanently",
+      "txHash": "0x7d84c132ea189e8d6bc391bc209301dea531c5ec2136b5fb4b12539c9e038973",
+      "status": "success"
+    },
+    {
+      "step": 6,
+      "action": "VENICE_MONITORING_LOOP",
+      "timestamp": "2026-03-21T18:00:00Z",
+      "tool": "Venice AI private inference",
+      "input": "stETH position data, validator metrics, mempool patterns",
+      "output": "Risk scores: slashing=12, MEV=34, liquidity=28, yieldGap=45bps",
+      "decision": "No threshold breached, continue monitoring",
+      "status": "success",
+      "note": "Venice API credits exhausted mid-hackathon. Monitoring runs with deterministic fallback. Real Venice API code present in agent/monitor.js"
+    },
+    {
+      "step": 7,
+      "action": "LIDO_MCP_INTEGRATION",
+      "timestamp": "2026-03-22T09:38:00Z",
+      "tool": "npx lido-mcp + direct wstETH contract",
+      "input": "getTreasuryPrimitive(), runLidoMonitoringAgent()",
+      "output": "Treasury primitive: wstETH balance tracked, yield monitoring active, plain English health report generated",
+      "status": "success"
+    },
+    {
+      "step": 8,
+      "action": "SUBMIT_TO_HACKATHON",
+      "timestamp": "2026-03-22T09:53:00Z",
+      "tool": "synthesis-api",
+      "input": "POST /projects + POST /projects/publish across 10 sponsor tracks",
+      "output": "Project published: uuid=4660a8a8d6ee4a68814ab3b3d2ba5b77",
+      "status": "success"
+    }
+  ],
+  "guardrails": [
+    "Principal structurally untouchable — SentinelVault blocks principal withdrawal at contract level",
+    "TEE proof required — SentinelSwapHook reverts any swap without valid shadow proof",
+    "Spending limits — SentinelDelegation enforces max 5% yield per action",
+    "Counterparty whitelist — only approved Uniswap pool addresses allowed",
+    "Confidence threshold — minimum 75/100 required before any execution",
+    "Proof expiry — shadow proofs older than 10 minutes are rejected"
+  ],
+  "computeBudget": {
+    "yieldOnlySpending": true,
+    "maxActionsPerCycle": 1,
+    "pollingIntervalSeconds": 60,
+    "estimatedDailyCostFromYield": "0.00001 ETH"
+  }
+}
