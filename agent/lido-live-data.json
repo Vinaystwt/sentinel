@@ -1,0 +1,16 @@
+{
+  "queriedAt": "2026-03-22T21:33:43.719Z",
+  "network": "base-mainnet",
+  "contract": "0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452",
+  "contractName": "Wrapped liquid staked Ether 2.0",
+  "symbol": "wstETH",
+  "decimals": 18,
+  "queryType": "READ_ONLY — no gas, no state change",
+  "data": {
+    "totalSupply": "35829519592828364777486",
+    "totalSupplyHuman": "35829.5196 wstETH in circulation on Base"
+  },
+  "interpretation": "Confirmed: wstETH is live and circulating on Base mainnet. This is the Lido-backed yield-bearing token that SentinelVault is designed to hold. Total supply confirms active Lido staking activity bridged to Base.",
+  "baseScanContract": "https://basescan.org/address/0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452",
+  "note": "Base wstETH is a bridged token — exchange rate functions live on Ethereum mainnet Lido contract. This query confirms token existence, supply, and onchain availability for SentinelVault integration."
+}

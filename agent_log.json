@@ -139,7 +139,11 @@
       "swapBlock": "43703380",
       "proofBlock": "43703403",
       "timestamp": "2026-03-22T00:00:00Z",
-      "status": "success"
+      "status": "success",
+      "txHash": "0xe8b337617cb337aa456b9576ba0e05dfd651aa9b51a940c9b00449b8ded3b9dd",
+      "baseScan": "https://basescan.org/tx/0xe8b337617cb337aa456b9576ba0e05dfd651aa9b51a940c9b00449b8ded3b9dd",
+      "shadowProofTxHash": "0x186d7b4f1dd5cd337168c897581a90234bfb67df0b349aa9208e0e7930d84753",
+      "shadowProofBaseScan": "https://basescan.org/tx/0x186d7b4f1dd5cd337168c897581a90234bfb67df0b349aa9208e0e7930d84753"
     },
     {
       "step": 12,
@@ -160,6 +164,25 @@
         "realSwapTX": "0xe8b337617cb337aa456b9576ba0e05dfd651aa9b51a940c9b00449b8ded3b9dd"
       },
       "note": "Sentinel proofs folder published. Any judge can independently verify TEE simulation via docker pull vinaystwt/sentinel-simulation:latest. beforeSwap() TEE gate on Uniswap v4 hook is architecturally unique in this hackathon."
+    },
+    {
+      "step": 13,
+      "action": "LIDO_ONCHAIN_QUERY",
+      "timestamp": "2026-03-22T21:33:43.719Z",
+      "tool": "viem readContract \u2014 wstETH on Base mainnet",
+      "input": "wstETH contract 0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452 \u2014 totalSupply, symbol, name, decimals",
+      "output": "35829.5196 wstETH in circulation on Base",
+      "status": "success",
+      "network": "base-mainnet",
+      "contract": "0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452",
+      "contractLink": "https://basescan.org/address/0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452",
+      "queryType": "READ_ONLY \u2014 no gas, no state change",
+      "liveData": {
+        "totalSupply": "35829519592828364777486",
+        "totalSupplyHuman": "35829.5196 wstETH in circulation on Base"
+      },
+      "interpretation": "Confirmed: wstETH is live and circulating on Base mainnet. This is the Lido-backed yield-bearing token that SentinelVault is designed to hold. Total supply confirms active Lido staking activity bridged to Base.",
+      "note": "Live wstETH data queried directly from Base mainnet. Confirms Sentinel monitoring loop can read real Lido state onchain. 35,829+ wstETH in circulation on Base \u2014 this is the asset class Sentinel is designed to protect."
     }
   ],
   "guardrails": [
