@@ -87,6 +87,17 @@
       "input": "POST /projects + POST /projects/publish across 10 sponsor tracks",
       "output": "Project published: uuid=4660a8a8d6ee4a68814ab3b3d2ba5b77",
       "status": "success"
+    },
+    {
+      "step": 9,
+      "action": "ERC-8004 Identity Registration Anchor",
+      "network": "base-mainnet",
+      "contract": "0x1a20d875822fe026c3388b4780ab34fe29e7855b",
+      "agentURI": "https://vinaystwt.github.io/sentinel/agent-registration.json",
+      "agentURIHash": "0x6bb310881b4cc78389a3af0eaa98f5be33889e391ce161232a40819c47249e02",
+      "txHash": "0x8749eda734873517affb0e16941d19be0d26cfeb6e1b78d3a2bb75088330a86a",
+      "baseScan": "https://basescan.org/tx/0x8749eda734873517affb0e16941d19be0d26cfeb6e1b78d3a2bb75088330a86a",
+      "block": "43701470"
     }
   ],
   "guardrails": [

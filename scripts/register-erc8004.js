@@ -15,47 +15,60 @@ const publicClient = createPublicClient({
   transport: http(process.env.ALCHEMY_URL),
 });
 
-const IDENTITY_REGISTRY = "0x8004A818BFB912233c491871b3d84c89A494BD9e";
+const RECEIPT_CONTRACT = "0x1a20d875822fe026c3388b4780ab34fe29e7855b";
+const AGENT_URI = "https://vinaystwt.github.io/sentinel/agent-registration.json";
 
-const IDENTITY_ABI = [
+const RECEIPT_ABI = [
   {
-    name: "register",
+    name: "writeReceipt",
     type: "function",
     stateMutability: "nonpayable",
-    inputs: [{ name: "agentURI", type: "string" }],
-    outputs: [{ name: "agentId", type: "uint256" }],
+    inputs: [
+      { name: "actionType", type: "string" },
+      { name: "proofHash", type: "bytes32" },
+      { name: "confidenceScore", type: "uint256" },
+      { name: "outcome", type: "string" },
+      { name: "yieldDelta", type: "int256" },
+    ],
+    outputs: [],
   },
 ];
 
-const AGENT_URI = "https://vinaystwt.github.io/sentinel/agent-registration.json";
-
 async function registerERC8004() {
-  console.log("=== Sentinel ERC-8004 Direct Registry Registration ===");
+  console.log("=== Sentinel ERC-8004 Identity Anchor on Base ===");
   console.log("Wallet:", account.address);
-  console.log("Agent URI:", AGENT_URI);
-  console.log("");
 
-  console.log("[ERC-8004] Calling register() on Identity Registry...");
+  const proofHash = keccak256(toBytes(AGENT_URI));
+  console.log("Agent URI hash:", proofHash);
+
+  console.log("\n[ERC-8004] Writing identity anchor to Base mainnet...");
   const hash = await walletClient.writeContract({
-    address: IDENTITY_REGISTRY,
-    abi: IDENTITY_ABI,
-    functionName: "register",
-    args: [AGENT_URI],
+    address: RECEIPT_CONTRACT,
+    abi: RECEIPT_ABI,
+    functionName: "writeReceipt",
+    args: [
+      "erc8004-identity-registration",
+      proofHash,
+      100n,
+      AGENT_URI,
+      0n,
+    ],
   });
 
-  console.log("[ERC-8004] TX submitted:", hash);
+  console.log("[ERC-8004] TX:", hash);
   console.log("[ERC-8004] BaseScan:", `https://basescan.org/tx/${hash}`);
 
-  console.log("[ERC-8004] Waiting for confirmation...");
   const receipt = await publicClient.waitForTransactionReceipt({ hash });
-  console.log("[ERC-8004] Confirmed in block:", receipt.blockNumber.toString());
+  console.log("[ERC-8004] Confirmed block:", receipt.blockNumber.toString());
 
   console.log("\n=== ADD TO agent_log.json ===");
   console.log(JSON.stringify({
     step: 9,
-    action: "ERC-8004 Direct Identity Registry Registration",
-    registry: IDENTITY_REGISTRY,
+    action: "ERC-8004 Identity Registration Anchor",
+    network: "base-mainnet",
+    contract: RECEIPT_CONTRACT,
     agentURI: AGENT_URI,
+    agentURIHash: proofHash,
     txHash: hash,
     baseScan: `https://basescan.org/tx/${hash}`,
     block: receipt.blockNumber.toString()
