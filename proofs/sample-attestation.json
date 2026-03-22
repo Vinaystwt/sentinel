@@ -1,0 +1,36 @@
+{
+  "attestation": {
+    "approved": true,
+    "confidenceScore": 82,
+    "proofHash": "0x337b341eb51a8cbdc1d5f5c795051aef2807ebb86c1bb5fb87dfa47bc0bf65bf",
+    "recommendation": "EXECUTE",
+    "simulationResult": {
+      "bestCaseScenario": "Full yield optimization with zero MEV",
+      "confidenceScore": 82,
+      "expectedOutcome": "Rebalance optimizes yield routing through most efficient pool",
+      "expectedYieldImpact": "+0.25% APY",
+      "proposedAction": "REBALANCE",
+      "reasoning": "Risk-adjusted return favors execution.",
+      "recommendation": "EXECUTE",
+      "worstCaseProbability": 12,
+      "worstCaseScenario": "Slippage 0.3% higher than expected"
+    },
+    "strategyHash": "03e0c356e7b1d42d2d1aa9ef7086a4c97612a58cb33ccc94d9c9cdefb913967c",
+    "teeAttestation": {
+      "attestationType": "SGX-TEE",
+      "hardwareVerified": true,
+      "signedAt": 1774213277,
+      "simulationHash": "0x337b341eb51a8cbdc1d5f5c795051aef2807ebb86c1bb5fb87dfa47bc0bf65bf",
+      "teeProvider": "EigenCloud/EigenCompute",
+      "version": "eigencloud-v1.0"
+    }
+  },
+  "success": true,
+  "_metadata": {
+    "generatedAt": "2026-03-22T20:00:00Z",
+    "dockerImage": "vinaystwt/sentinel-simulation:latest",
+    "dockerDigest": "sentinel-simulation@sha256:f5b83f3e50a7972531035713289f96fb8b8afeb925a7ac2688053eeff37c8c70",
+    "teeProvider": "EigenCloud/EigenCompute",
+    "note": "Sample attestation output from the live TEE container. proofHash is registered onchain on Base mainnet."
+  }
+}
