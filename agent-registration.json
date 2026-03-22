@@ -1,0 +1,24 @@
+{
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+  "name": "Sentinel DAO Guardian",
+  "description": "Autonomous AI treasury guardian for DAOs. Monitors Lido stETH risk via Venice AI, generates cryptographic shadow proofs in EigenCloud TEE, and executes only yield — principal is structurally locked at contract level.",
+  "services": [
+    { "name": "web", "endpoint": "https://vinaystwt.github.io/sentinel/" },
+    { "name": "MCP", "endpoint": "https://github.com/Vinaystwt/sentinel/tree/master/agent", "version": "2025-06-18" }
+  ],
+  "x402Support": true,
+  "active": true,
+  "contracts": {
+    "network": "base-mainnet",
+    "chainId": 8453,
+    "vault": "0xa7ecd19963abcbd8ee8df55b97f6a25ab80bc34a",
+    "delegation": "0x9317b43be52a3159489073853c2adb2ee4960013",
+    "receipt": "0x1a20d875822fe026c3388b4780ab34fe29e7855b",
+    "swapHook": "0x94f02cc3954a4c3322afb14741d4e7d2a89f7871"
+  },
+  "eigencloud": {
+    "appId": "0x28b72Cd70b8932aBAd5DAf0E1cE6114877548bA6",
+    "deploymentTx": "https://sepolia.etherscan.io/tx/0x42201ad8ea6a7bdc4338efe0afd26c7d06ff366fb46e5970b87b4dd5dfffbf9b4"
+  },
+  "repo": "https://github.com/Vinaystwt/sentinel"
+}
