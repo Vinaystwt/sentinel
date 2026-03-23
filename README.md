@@ -1,6 +1,9 @@
 # SENTINEL
 ### Always Watching. Provably Thinking. Yield-Only Acting.
 
+**Demo Video:** https://youtu.be/glRUAUHkgl4
+
+
 > The first AI treasury agent that proves every decision with cryptographic evidence before spending a single wei of yield.
 
 Built for [The Synthesis Hackathon](https://synthesis.md) — March 2026

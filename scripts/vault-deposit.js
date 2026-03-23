@@ -3,7 +3,7 @@ import { base } from 'viem/chains';
 import { privateKeyToAccount } from 'viem/accounts';
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
-const ALCHEMY_URL = process.env.ALCHEMY_URL || 'https://base-mainnet.g.alchemy.com/v2/9DEiQU97Q_xA_8joYIM4m';
+const ALCHEMY_URL = process.env.ALCHEMY_URL || 'process.env.ALCHEMY_URL';
 const VAULT_ADDRESS = '0xa7ecd19963abcbd8ee8df55b97f6a25ab80bc34a';
 
 async function depositToVault() {

@@ -12,7 +12,7 @@ const WSTETH_ABI = parseAbi([
   'function balanceOf(address) view returns (uint256)'
 ]);
 
-const ALCHEMY_URL = process.env.ALCHEMY_URL || 'https://base-mainnet.g.alchemy.com/v2/9DEiQU97Q_xA_8joYIM4m';
+const ALCHEMY_URL = process.env.ALCHEMY_URL || 'process.env.ALCHEMY_URL';
 
 async function queryLidoOnchain() {
   console.log('Querying Lido wstETH contract on Base mainnet...');
