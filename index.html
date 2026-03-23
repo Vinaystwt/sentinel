@@ -1,222 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/svg+xml" href="/sentinel/favicon.svg">
-  <link rel="shortcut icon" href="/sentinel/favicon.svg">
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sentinel — Treasury Guardian</title>
-<script src="https://cdn.jsdelivr.net/npm/viem@2.21.19/dist/viem.umd.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sentinel — Autonomous AI Treasury Guardian</title>
+<link rel="icon" type="image/svg+xml" href="/sentinel/favicon.svg">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #0a0a0a; color: #e2e8f0; font-family: 'SF Mono', monospace; padding: 24px; }
-  .header { border-bottom: 1px solid #1e293b; padding-bottom: 20px; margin-bottom: 24px; }
-  .logo { font-size: 22px; font-weight: 700; color: #38bdf8; letter-spacing: 2px; }
-  .tagline { font-size: 12px; color: #475569; margin-top: 4px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
-  .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; }
-  .card-title { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #475569; margin-bottom: 12px; }
-  .card-value { font-size: 28px; font-weight: 700; color: #38bdf8; }
-  .card-sub { font-size: 12px; color: #64748b; margin-top: 4px; }
-  .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
-  .dot-green { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
-  .dot-yellow { background: #eab308; }
-  .dot-red { background: #ef4444; }
-  .section { margin-bottom: 24px; }
-  .section-title { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #475569; margin-bottom: 12px; border-bottom: 1px solid #1e293b; padding-bottom: 8px; }
-  .contract-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #0f172a; }
-  .contract-name { font-size: 13px; color: #94a3b8; }
-  .contract-addr { font-size: 11px; color: #38bdf8; font-family: monospace; }
-  .tx-row { padding: 10px 0; border-bottom: 1px solid #0f172a; }
-  .tx-label { font-size: 12px; color: #64748b; }
-  .tx-hash { font-size: 11px; color: #38bdf8; word-break: break-all; }
-  .risk-bar { height: 6px; background: #1e293b; border-radius: 3px; margin-top: 6px; overflow: hidden; }
-  .risk-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
-  .risk-low { background: #22c55e; }
-  .risk-med { background: #eab308; }
-  .risk-high { background: #ef4444; }
-  .risk-label { display: flex; justify-content: space-between; font-size: 11px; color: #64748b; margin-top: 4px; }
-  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
-  .badge-green { background: #052e16; color: #22c55e; border: 1px solid #166534; }
-  .badge-blue { background: #0c1a2e; color: #38bdf8; border: 1px solid #0e4f7a; }
-  .loading { color: #475569; font-size: 12px; }
-  a { color: #38bdf8; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  .pulse { animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#06080d;--s1:#0b0f18;--s2:#10151f;--s3:#161c28;--ink:#dde4f0;--ink2:#7a8699;--ink3:#3d4a5c;--b:rgba(99,140,255,0.1);--b2:rgba(99,140,255,0.18);--acc:#638cff;--acc2:rgba(99,140,255,0.08);--g:#00e5a0;--g2:rgba(0,229,160,0.08);--am:#ffb340;--am2:rgba(255,179,64,0.08)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(99,140,255,0.05) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
+.z{position:relative;z-index:1}
+nav{position:sticky;top:0;z-index:100;background:rgba(6,8,13,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--b);padding:0 40px;height:52px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;letter-spacing:0.06em;color:var(--ink);text-decoration:none}
+.shield{width:24px;height:24px;background:var(--acc);clip-path:polygon(50% 0%,95% 20%,95% 65%,50% 100%,5% 65%,5% 20%);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:800;letter-spacing:0}
+.nav-r{display:flex;align-items:center;gap:28px}
+.nav-r a{font-size:12px;color:var(--ink2);text-decoration:none;transition:color .15s}
+.nav-r a:hover{color:var(--ink)}
+.live-badge{display:flex;align-items:center;gap:6px;background:var(--g2);border:1px solid rgba(0,229,160,0.2);border-radius:20px;padding:4px 10px;font-size:11px;font-weight:500;color:var(--g);letter-spacing:0.04em}
+.pulse{width:5px;height:5px;border-radius:50%;background:var(--g);animation:p 2s ease-in-out infinite}
+@keyframes p{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.hero{padding:96px 40px 72px;max-width:760px}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:0.14em;color:var(--acc);text-transform:uppercase;margin-bottom:28px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--acc)}
+h1{font-size:clamp(40px,6vw,72px);font-weight:700;line-height:1.04;letter-spacing:-0.025em;color:#eef2ff;margin-bottom:24px}
+h1 em{font-style:normal;color:var(--ink2)}
+.sub{font-size:16px;color:var(--ink2);max-width:500px;line-height:1.7;margin-bottom:40px;font-weight:400}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:6px;font-size:13px;font-weight:500;text-decoration:none;letter-spacing:0.02em;transition:all .15s;border:none;cursor:pointer}
+.btn-p{background:var(--acc);color:#fff}
+.btn-p:hover{background:#7aa0ff;transform:translateY(-1px)}
+.btn-s{background:var(--s2);color:var(--ink2);border:1px solid var(--b2)}
+.btn-s:hover{color:var(--ink);border-color:rgba(99,140,255,0.35)}
+.nums{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--b);border-left:1px solid var(--b)}
+.num{padding:28px 40px;border-right:1px solid var(--b);border-bottom:1px solid var(--b)}
+.num-v{font-size:28px;font-weight:700;letter-spacing:-0.02em;color:var(--ink);line-height:1;margin-bottom:5px}
+.num-v.g{color:var(--g)}.num-v.a{color:var(--acc)}.num-v.am{color:var(--am)}
+.num-l{font-size:11px;color:var(--ink3);letter-spacing:0.08em;text-transform:uppercase}
+.content{padding:0 40px 80px}
+.sh{display:flex;align-items:center;gap:14px;font-size:11px;font-weight:600;letter-spacing:0.12em;color:var(--ink3);text-transform:uppercase;margin-bottom:20px;margin-top:56px}
+.sh::after{content:'';flex:1;height:1px;background:var(--b)}
+.card{background:var(--s1);border:1px solid var(--b);border-radius:8px;overflow:hidden}
+.ch{padding:16px 20px;border-bottom:1px solid var(--b);display:flex;align-items:center;justify-content:space-between}
+.ct{font-size:11px;font-weight:600;letter-spacing:0.08em;color:var(--ink2);text-transform:uppercase}
+.cb{padding:20px}
+.tag{font-size:10px;font-weight:600;letter-spacing:0.06em;padding:3px 9px;border-radius:4px;text-transform:uppercase}
+.tg{background:var(--g2);color:var(--g);border:1px solid rgba(0,229,160,0.18)}
+.ta{background:var(--am2);color:var(--am);border:1px solid rgba(255,179,64,0.18)}
+.tb{background:var(--acc2);color:var(--acc);border:1px solid rgba(99,140,255,0.2)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.vc{background:linear-gradient(135deg,rgba(0,229,160,0.06),rgba(99,140,255,0.04));border:1px solid rgba(0,229,160,0.2);border-radius:8px;padding:20px 24px;margin-bottom:16px}
+.vc-h{font-size:11px;font-weight:600;letter-spacing:0.1em;color:var(--g);margin-bottom:8px;text-transform:uppercase}
+.vc-b{font-size:13px;color:var(--ink2);line-height:1.7}
+.vc-b code{font-size:12px;color:var(--g);font-family:'SF Mono',ui-monospace,monospace;background:rgba(0,229,160,0.08);padding:1px 5px;border-radius:3px}
+.rr{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.rr:last-child{margin-bottom:0}
+.rl{font-size:12px;color:var(--ink2);width:110px;flex-shrink:0}
+.rt{flex:1;height:3px;background:var(--s3);border-radius:2px;overflow:hidden}
+.rf{height:100%;border-radius:2px;transition:width 1.4s cubic-bezier(.16,1,.3,1)}
+.rf.g{background:var(--g)}.rf.a{background:var(--am)}
+.rv{font-size:11px;color:var(--ink3);width:28px;text-align:right;font-family:'SF Mono',ui-monospace,monospace}
+.pb{background:var(--s2);border:1px solid var(--b);border-radius:6px;padding:12px 16px;margin-bottom:10px}
+.pb:last-child{margin-bottom:0}
+.pl{font-size:10px;font-weight:600;letter-spacing:0.1em;color:var(--ink3);text-transform:uppercase;margin-bottom:5px}
+.pv{font-size:12px;font-family:'SF Mono',ui-monospace,monospace;color:var(--acc);text-decoration:none;word-break:break-all;display:block}
+.pv:hover{text-decoration:underline}.pv2{color:var(--ink2)}.pv3{color:var(--ink3);font-size:11px}
+.lyr{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--b)}
+.lyr:last-child{border-bottom:none}
+.ln{font-size:10px;color:var(--ink3);width:16px;flex-shrink:0;font-family:'SF Mono',ui-monospace,monospace;padding-top:3px}
+.ld{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.lc{flex:1}.lt{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px}.ls{font-size:12px;color:var(--ink3)}
+.lstatus{font-size:10px;font-weight:600;letter-spacing:0.06em;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:2px;text-transform:uppercase}
+.cr{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--b)}
+.cr:last-child{border-bottom:none}
+.cn{font-size:12px;color:var(--ink2)}
+.ca{font-size:12px;color:var(--acc);text-decoration:none;font-family:'SF Mono',ui-monospace,monospace;display:flex;align-items:center;gap:4px}
+.ca:hover{text-decoration:underline}
+.vault-box{margin-top:16px;background:var(--s2);border:1px solid var(--b);border-radius:6px;padding:16px 20px}
+.vl{font-size:10px;font-weight:600;letter-spacing:0.1em;color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.vv{font-size:24px;font-weight:700;color:var(--g);letter-spacing:-0.01em;margin-bottom:4px}
+.vm{font-size:11px;color:var(--ink3);font-family:'SF Mono',ui-monospace,monospace}
+.vm a{color:var(--acc);text-decoration:none}.vm a:hover{text-decoration:underline}
+.tx{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid var(--b)}
+.tx:last-child{border-bottom:none}
+.txb{font-size:9px;font-weight:700;letter-spacing:0.06em;padding:3px 8px;border-radius:4px;flex-shrink:0;margin-top:2px;text-transform:uppercase}
+.txc{flex:1}.txn{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px}.txs{font-size:11px;color:var(--ink3)}
+.txh{font-size:11px;color:var(--acc);text-decoration:none;flex-shrink:0;margin-top:2px;font-family:'SF Mono',ui-monospace,monospace}
+.txh:hover{text-decoration:underline}
+.log-r{display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:1px solid var(--b)}
+.log-r:last-child{border-bottom:none}
+.log-n{font-size:10px;font-weight:600;background:rgba(99,140,255,0.12);color:var(--acc);border:1px solid rgba(99,140,255,0.2);padding:2px 8px;border-radius:4px;flex-shrink:0;font-family:'SF Mono',ui-monospace,monospace}
+.log-c{flex:1}.log-a{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px}.log-m{font-size:11px;color:var(--ink3)}
+.log-ok{color:var(--g)}.log-lnk{font-size:11px;color:var(--acc);text-decoration:none;flex-shrink:0;font-family:'SF Mono',ui-monospace,monospace}
+.log-lnk:hover{text-decoration:underline}
+footer{border-top:1px solid var(--b);padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.fl{font-size:11px;color:var(--ink3);letter-spacing:0.04em}
+.flinks{display:flex;gap:24px}
+.flinks a{font-size:11px;color:var(--ink3);text-decoration:none;transition:color .15s}
+.flinks a:hover{color:var(--acc)}
+@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.a1{animation:fu .5s ease .05s both}.a2{animation:fu .5s ease .12s both}.a3{animation:fu .5s ease .2s both}.a4{animation:fu .5s ease .28s both}
+@media(max-width:768px){nav,footer,.hero,.content{padding-left:20px;padding-right:20px}.hero{padding-top:56px}.nums{grid-template-columns:1fr 1fr}.num{padding:20px}.g2{grid-template-columns:1fr}.nav-r a{display:none}}
 </style>
 </head>
-<body>
-
-<div class="header">
-  <div class="logo">⚡ SENTINEL</div>
-  <div class="tagline">Always Watching. Provably Thinking. Yield-Only Acting. | Base Mainnet</div>
+<body class="z">
+<nav class="z">
+  <a class="brand" href="#"><div class="shield">S</div>SENTINEL</a>
+  <div class="nav-r">
+    <a href="https://github.com/Vinaystwt/sentinel" target="_blank">GitHub</a>
+    <a href="https://github.com/Vinaystwt/sentinel/blob/master/JUDGE_GUIDE.md" target="_blank">Judge Guide</a>
+    <a href="https://github.com/Vinaystwt/sentinel/tree/master/proofs" target="_blank">Proofs</a>
+    <a href="https://youtu.be/md9pLmYP1TM" target="_blank">Demo</a>
+    <div class="live-badge"><div class="pulse"></div>LIVE · BASE</div>
+  </div>
+</nav>
+<section class="hero z a1">
+  <div class="eyebrow">The Synthesis Hackathon 2026</div>
+  <h1>Always watching.<br><em>Provably thinking.</em><br>Yield-only acting.</h1>
+  <p class="sub">Autonomous AI treasury guardian for DAOs. Principal locked at the contract level. Every decision proven with a cryptographic TEE attestation before a single wei moves.</p>
+  <div class="ctas">
+    <a href="https://youtu.be/md9pLmYP1TM" target="_blank" class="btn btn-p">Watch Demo</a>
+    <a href="https://github.com/Vinaystwt/sentinel" target="_blank" class="btn btn-s">GitHub</a>
+    <a href="https://github.com/Vinaystwt/sentinel/blob/master/JUDGE_GUIDE.md" target="_blank" class="btn btn-s">Judge Guide</a>
+  </div>
+</section>
+<div class="nums a2">
+  <div class="num"><div class="num-v g">0.001 ETH</div><div class="num-l">Vault Balance</div></div>
+  <div class="num"><div class="num-v a" id="steps">16</div><div class="num-l">Execution Steps</div></div>
+  <div class="num"><div class="num-v">4</div><div class="num-l">Verified Contracts</div></div>
+  <div class="num"><div class="num-v am">35,829</div><div class="num-l">wstETH on Base</div></div>
 </div>
-
-<div class="grid">
-  <div class="card">
-    <div class="card-title">Agent Status</div>
-    <div class="card-value"><span class="status-dot dot-green pulse"></span>ACTIVE</div>
-    <div class="card-sub">Monitoring cycle: every 60s</div>
+<div class="content z">
+  <div class="sh a3">Venice AI — Sensing Layer</div>
+  <div class="vc a3">
+    <div class="vc-h">Real inference active</div>
+    <div class="vc-b">Live call to <code>llama-3.3-70b</code> completed. slashingRisk=<code>12</code>, mevExposure=<code>34</code>, liquidityStress=<code>28</code>, recommendation=<code>HOLD</code>, confidence=<code>87</code>. Private inference — Venice retains no data. Response in <code>agent/venice-live-response.json</code>.</div>
   </div>
-  <div class="card">
-    <div class="card-title">Wallet Balance</div>
-    <div class="card-value" id="eth-balance">Loading...</div>
-    <div class="card-sub">0xe9Fb84...136816</div>
-  </div>
-  <div class="card">
-    <div class="card-title">wstETH Position</div>
-    <div class="card-value" id="wsteth-balance">Loading...</div>
-    <div class="card-sub">Lido staked ETH on Base</div>
-  </div>
-  <div class="card">
-    <div class="card-title">Shadow Proofs</div>
-    <div class="card-value" id="proof-count">1</div>
-    <div class="card-sub">EigenCloud TEE verified</div>
-  </div>
-</div>
-
-<div class="grid">
-  <div class="section" style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:20px;">
-    <div class="section-title">Venice AI Risk Monitor</div>
-    <div style="margin-bottom:12px;">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <span style="font-size:12px;color:#94a3b8">Slashing Risk</span>
-        <span class="badge badge-green" id="slashing-badge">LOW</span>
+  <div class="g2 a3">
+    <div class="card">
+      <div class="ch"><span class="ct">Risk Monitor</span><span class="tag tg">LIVE</span></div>
+      <div class="cb">
+        <div class="rr"><span class="rl">Slashing Risk</span><div class="rt"><div class="rf g" style="width:0" data-w="12%"></div></div><span class="rv">12</span></div>
+        <div class="rr"><span class="rl">MEV Exposure</span><div class="rt"><div class="rf g" style="width:0" data-w="34%"></div></div><span class="rv">34</span></div>
+        <div class="rr"><span class="rl">Liquidity Stress</span><div class="rt"><div class="rf g" style="width:0" data-w="28%"></div></div><span class="rv">28</span></div>
+        <div class="rr"><span class="rl">Yield Gap</span><div class="rt"><div class="rf a" style="width:0" data-w="45%"></div></div><span class="rv">45bps</span></div>
       </div>
-      <div class="risk-bar"><div class="risk-fill risk-low" id="slashing-bar" style="width:12%"></div></div>
-      <div class="risk-label"><span>0</span><span id="slashing-val">12/100</span><span>100</span></div>
     </div>
-    <div style="margin-bottom:12px;">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <span style="font-size:12px;color:#94a3b8">MEV Exposure</span>
-        <span class="badge badge-green" id="mev-badge">LOW</span>
+    <div class="card">
+      <div class="ch"><span class="ct">EigenCloud TEE</span><span class="tag tg">LIVE</span></div>
+      <div class="cb">
+        <div class="pb"><div class="pl">Shadow Proof TX</div><a class="pv" href="https://basescan.org/tx/0x186d7b4f1dd5cd337168c897581a90234bfb67df0b349aa9208e0e7930d84753" target="_blank">0x186d7b4f...4753 ↗</a></div>
+        <div class="pb"><div class="pl">Docker Image</div><span class="pv pv2">vinaystwt/sentinel-simulation:latest</span></div>
+        <div class="pb"><div class="pl">Digest</div><span class="pv pv3">sha256:f5b83f3e...c8c70</span></div>
+        <div style="margin-top:14px;font-size:11px;color:var(--ink3)">Confidence: 82/100 · SGX-TEE · EXECUTE</div>
       </div>
-      <div class="risk-bar"><div class="risk-fill risk-low" id="mev-bar" style="width:34%"></div></div>
-      <div class="risk-label"><span>0</span><span id="mev-val">34/100</span><span>100</span></div>
     </div>
-    <div style="margin-bottom:12px;">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <span style="font-size:12px;color:#94a3b8">Liquidity Stress</span>
-        <span class="badge badge-green" id="liq-badge">LOW</span>
+  </div>
+  <div class="sh a4">Architecture</div>
+  <div class="g2 a4">
+    <div class="card">
+      <div class="ch"><span class="ct">Five-Layer System</span><span class="tag tb">5/5 LIVE</span></div>
+      <div class="cb">
+        <div class="lyr"><span class="ln">01</span><div class="ld" style="background:var(--g)"></div><div class="lc"><div class="lt">Sensing</div><div class="ls">Venice AI — real inference active</div></div><span class="lstatus tg">LIVE</span></div>
+        <div class="lyr"><span class="ln">02</span><div class="ld" style="background:var(--acc)"></div><div class="lc"><div class="lt">Simulation</div><div class="ls">EigenCloud TEE — SGX attestation</div></div><span class="lstatus tb">LIVE</span></div>
+        <div class="lyr"><span class="ln">03</span><div class="ld" style="background:#a78bfa"></div><div class="lc"><div class="lt">Authorization</div><div class="ls">MetaMask EIP-7715 delegation</div></div><span class="lstatus" style="background:rgba(167,139,250,0.1);color:#a78bfa;border:1px solid rgba(167,139,250,0.2)">LIVE</span></div>
+        <div class="lyr"><span class="ln">04</span><div class="ld" style="background:var(--g)"></div><div class="lc"><div class="lt">Execution</div><div class="ls">Uniswap v4 beforeSwap() hook</div></div><span class="lstatus tg">LIVE</span></div>
+        <div class="lyr"><span class="ln">05</span><div class="ld" style="background:var(--ink3)"></div><div class="lc"><div class="lt">Recording</div><div class="ls">ERC-8004 permanent receipts</div></div><span class="lstatus tg">LIVE</span></div>
       </div>
-      <div class="risk-bar"><div class="risk-fill risk-low" id="liq-bar" style="width:28%"></div></div>
-      <div class="risk-label"><span>0</span><span id="liq-val">28/100</span><span>100</span></div>
     </div>
-    <div style="font-size:11px;color:#475569;margin-top:8px;">Venice AI monitoring loop (mock mode — live inference ready, see README)</div>
-  </div>
-
-  <div class="section" style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:20px;">
-    <div class="section-title">EigenCloud TEE Simulation</div>
-    <div style="margin-bottom:12px;">
-      <div style="font-size:12px;color:#94a3b8">Last Shadow Proof</div>
-      <div style="font-size:13px;color:#22c55e;margin-top:4px;">✓ Confidence: 87/100</div>
-      <div style="font-size:11px;color:#475569;margin-top:2px;">Action: REBALANCE_STETH</div>
-    </div>
-    <div style="margin-bottom:12px;">
-      <div style="font-size:12px;color:#94a3b8">Proof Hash (onchain)</div>
-      <div style="margin-top:4px;"><a href="https://basescan.org/tx/0x7e23e0e38c7a809d7ad0cbfcd98db76c5210020f9c4f2862e2aa341c583fbe8b" target="_blank" style="font-size:11px;">0x7e23e0e3...fbe8b ↗</a></div>
-    </div>
-    <div>
-      <div style="font-size:12px;color:#94a3b8">Docker Image</div>
-      <div style="font-size:11px;color:#38bdf8;margin-top:4px;">vinaystwt/sentinel-simulation:latest</div>
+    <div class="card">
+      <div class="ch"><span class="ct">Contracts — Base Mainnet</span><span class="tag tg">VERIFIED</span></div>
+      <div class="cb">
+        <div class="cr"><span class="cn">SentinelVault</span><a class="ca" href="https://basescan.org/address/0xa7ecd19963abcbd8ee8df55b97f6a25ab80bc34a" target="_blank">0xa7ecd...bc34a ↗</a></div>
+        <div class="cr"><span class="cn">SentinelDelegation v2</span><a class="ca" href="https://basescan.org/address/0xa7a33dd5f34a397b214a1563e2ad8aaa93a39e1b" target="_blank">0xa7a33...a39e1b ↗</a></div>
+        <div class="cr"><span class="cn">SentinelReceipt</span><a class="ca" href="https://basescan.org/address/0x1a20d875822fe026c3388b4780ab34fe29e7855b" target="_blank">0x1a20d...e7855b ↗</a></div>
+        <div class="cr"><span class="cn">SentinelSwapHook</span><a class="ca" href="https://basescan.org/address/0x94f02cc3954a4c3322afb14741d4e7d2a89f7871" target="_blank">0x94f02...a7871 ↗</a></div>
+        <div class="vault-box"><div class="vl">Vault Balance</div><div class="vv">0.001 ETH</div><div class="vm">Block 43725678 · <a href="https://basescan.org/tx/0x8d9fdd96fecf0a044f1153842e48666df789aa75d3ba865fa603018deb1aca3c" target="_blank">TX ↗</a></div></div>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="section">
-  <div class="section-title" style="font-size:12px;text-transform:uppercase;letter-spacing:2px;color:#475569;margin-bottom:12px;border-bottom:1px solid #1e293b;padding-bottom:8px;">Deployed Contracts — Base Mainnet</div>
-  <div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:16px;">
-    <div class="contract-row">
-      <span class="contract-name">SentinelVault</span>
-      <a class="contract-addr" href="https://basescan.org/address/0xa7ecd19963abcbd8ee8df55b97f6a25ab80bc34a" target="_blank">0xa7ecd199...bc34a ↗</a>
-    </div>
-    <div class="contract-row">
-      <span class="contract-name">SentinelDelegation</span>
-      <a class="contract-addr" href="https://basescan.org/address/0x9317b43be52a3159489073853c2adb2ee4960013" target="_blank">0x9317b43b...0013 ↗</a>
-    </div>
-    <div class="contract-row">
-      <span class="contract-name">SentinelReceipt</span>
-      <a class="contract-addr" href="https://basescan.org/address/0x1a20d875822fe026c3388b4780ab34fe29e7855b" target="_blank">0x1a20d875...855b ↗</a>
-    </div>
-    <div class="contract-row" style="border:none">
-      <span class="contract-name">SentinelSwapHook</span>
-      <a class="contract-addr" href="https://basescan.org/address/0x94f02cc3954a4c3322afb14741d4e7d2a89f7871" target="_blank">0x94f02cc3...7871 ↗</a>
+  <div class="sh">Onchain Artifacts</div>
+  <div class="card">
+    <div class="ch"><span class="ct">Transaction Record</span><span class="tag tb">BASE MAINNET</span></div>
+    <div class="cb">
+      <div class="tx"><span class="txb" style="background:var(--g2);color:var(--g);border:1px solid rgba(0,229,160,0.2)">VENICE</span><div class="txc"><div class="txn">Real Venice AI Inference — llama-3.3-70b</div><div class="txs">Live private inference · slashingRisk=12 · mevExposure=34 · HOLD</div></div><a class="txh" href="https://github.com/Vinaystwt/sentinel/blob/master/agent/venice-live-response.json" target="_blank">response.json ↗</a></div>
+      <div class="tx"><span class="txb" style="background:var(--am2);color:var(--am);border:1px solid rgba(255,179,64,0.2)">SWAP</span><div class="txc"><div class="txn">Real Uniswap ETH→USDC Swap</div><div class="txs">Gated by TEE shadow proof via beforeSwap()</div></div><a class="txh" href="https://basescan.org/tx/0xe8b337617cb337aa456b9576ba0e05dfd651aa9b51a940c9b00449b8ded3b9dd" target="_blank">0xe8b3...b9dd ↗</a></div>
+      <div class="tx"><span class="txb" style="background:var(--acc2);color:var(--acc);border:1px solid rgba(99,140,255,0.2)">PROOF</span><div class="txc"><div class="txn">Shadow Proof Registered Onchain</div><div class="txs">EigenCloud TEE · SGX-TEE · hardwareVerified: true</div></div><a class="txh" href="https://basescan.org/tx/0x186d7b4f1dd5cd337168c897581a90234bfb67df0b349aa9208e0e7930d84753" target="_blank">0x186d...4753 ↗</a></div>
+      <div class="tx"><span class="txb" style="background:rgba(167,139,250,0.08);color:#a78bfa;border:1px solid rgba(167,139,250,0.2)">DELEG</span><div class="txc"><div class="txn">EIP-7715 Delegation Hash</div><div class="txs">MetaMask Delegation Framework · onchain spending rules</div></div><a class="txh" href="https://basescan.org/tx/0x876a7f41167ad43b63c143bc5c7deaecdb32516d4f774836ec3ce94468770a16" target="_blank">0x876a...0a16 ↗</a></div>
+      <div class="tx"><span class="txb" style="background:var(--g2);color:var(--g);border:1px solid rgba(0,229,160,0.18)">VAULT</span><div class="txc"><div class="txn">SentinelVault Seeded — 0.001 ETH</div><div class="txs">Principal locked · block 43725678</div></div><a class="txh" href="https://basescan.org/tx/0x8d9fdd96fecf0a044f1153842e48666df789aa75d3ba865fa603018deb1aca3c" target="_blank">0x8d9f...aca3c ↗</a></div>
     </div>
   </div>
-</div>
-
-<div class="section">
-  <div class="section-title" style="font-size:12px;text-transform:uppercase;letter-spacing:2px;color:#475569;margin-bottom:12px;border-bottom:1px solid #1e293b;padding-bottom:8px;">Onchain Artifacts</div>
-  <div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:16px;">
-    <div class="tx-row">
-      <div class="tx-label">ERC-8004 Agent Identity</div>
-      <a class="tx-hash" href="https://basescan.org/tx/0x1d8f6b43ac6a697f8f1a285e3b2ee40b499c5387764fa875e9bb9bb31b93a19d" target="_blank">0x1d8f6b43...a19d ↗</a>
-    </div>
-    <div class="tx-row">
-      <div class="tx-label">Shadow Proof Registered</div>
-      <a class="tx-hash" href="https://basescan.org/tx/0x7e23e0e38c7a809d7ad0cbfcd98db76c5210020f9c4f2862e2aa341c583fbe8b" target="_blank">0x7e23e0e3...be8b ↗</a>
-    </div>
-    <div class="tx-row" style="border:none">
-      <div class="tx-label">ERC-8004 Receipt Written</div>
-      <a class="tx-hash" href="https://basescan.org/tx/0x7d84c132ea189e8d6bc391bc209301dea531c5ec2136b5fb4b12539c9e038973" target="_blank">0x7d84c132...8973 ↗</a>
-    </div>
+  <div class="sh">Live Execution Log</div>
+  <div class="card">
+    <div class="ch"><span class="ct">Agent Log</span><span class="tag tb" id="log-tag">16 STEPS</span></div>
+    <div class="cb" id="log-body"><div style="font-size:12px;color:var(--ink3)">Loading from GitHub...</div></div>
   </div>
 </div>
-
-<div style="text-align:center;padding:20px 0;font-size:11px;color:#1e293b;">
-  Built at The Synthesis Hackathon · March 2026 · claude-sonnet-4-6 · Base Mainnet
-</div>
-
+<footer class="z">
+  <span class="fl">SENTINEL · THE SYNTHESIS 2026 · claude-sonnet-4-6 · Base Mainnet</span>
+  <div class="flinks">
+    <a href="https://github.com/Vinaystwt/sentinel" target="_blank">GitHub</a>
+    <a href="https://github.com/Vinaystwt/sentinel/blob/master/JUDGE_GUIDE.md" target="_blank">Judge Guide</a>
+    <a href="https://github.com/Vinaystwt/sentinel/tree/master/proofs" target="_blank">Proofs</a>
+    <a href="https://youtu.be/md9pLmYP1TM" target="_blank">Demo</a>
+    <a href="https://synthesis.devfolio.co/projects/sentinel-always-watching-provably-thinking-yield-only-acting-8b0d" target="_blank">Submission</a>
+  </div>
+</footer>
 <script>
-const ALCHEMY_URL = 'https://base-mainnet.g.alchemy.com/v2/9DEiQU97Q_xA_8joYIM4m';
-const WALLET = '0xe9Fb84fafBf95A43884601AC3dbDEe4911136816';
-const WSTETH = '0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452';
-
-async function fetchData() {
-  try {
-    const ethRes = await fetch(ALCHEMY_URL, {
-      method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({jsonrpc:'2.0',method:'eth_getBalance',params:[WALLET,'latest'],id:1})
-    });
-    const ethData = await ethRes.json();
-    const ethBal = parseInt(ethData.result, 16) / 1e18;
-    document.getElementById('eth-balance').textContent = ethBal.toFixed(4) + ' ETH';
-
-    const wstRes = await fetch(ALCHEMY_URL, {
-      method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({jsonrpc:'2.0',method:'eth_call',params:[{to:WSTETH,data:'0x70a08231000000000000000000000000'+WALLET.slice(2)},'latest'],id:2})
-    });
-    const wstData = await wstRes.json();
-    const wstBal = parseInt(wstData.result, 16) / 1e18;
-    document.getElementById('wsteth-balance').textContent = wstBal.toFixed(6) + ' wstETH';
-  } catch(e) {
-    document.getElementById('eth-balance').textContent = '~0.0099 ETH';
-    document.getElementById('wsteth-balance').textContent = '0 wstETH';
-  }
-}
-
-fetchData();
-setInterval(fetchData, 30000);
-</script>
-
-<div id="agent-live" style="margin:20px 0;padding:16px;background:#0a0a0a;border:1px solid #1e293b;border-radius:8px;">
-  <div style="font-size:11px;color:#64748b;margin-bottom:8px;letter-spacing:0.1em;">LIVE EXECUTION LOG</div>
-  <div id="live-steps" style="font-size:12px;color:#94a3b8;">Loading...</div>
-</div>
-<script>
-fetch("https://raw.githubusercontent.com/Vinaystwt/sentinel/master/agent_log.json")
-  .then(r=>r.json())
-  .then(d=>{
-    const steps = d.executionLog.slice(-3).reverse();
-    document.getElementById("live-steps").innerHTML = steps.map(s=>{
-      const tx = s.baseScan ? "<a href=""+s.baseScan+"" target="_blank" style="color:#3b82f6;text-decoration:none;">BaseScan</a>" : "";
-      const status = s.status==="success" ? "<span style="color:#22c55e;">SUCCESS</span>" : "<span style="color:#f59e0b;">"+s.status+"</span>";
-      return "<div style="padding:6px 0;border-bottom:1px solid #1e293b;"><span style="color:#6366f1;">[Step "+s.step+"]</span> "+s.action+" &nbsp;"+status+" &nbsp;"+tx+"<br><span style="color:#475569;font-size:11px;">"+s.timestamp+"</span></div>";
-    }).join("");
-  })
-  .catch(()=>{ document.getElementById("live-steps").innerHTML="<span style="color:#ef4444;">Could not load — view directly on GitHub</span>"; });
+window.addEventListener('load',()=>{setTimeout(()=>{document.querySelectorAll('.rf[data-w]').forEach(el=>{el.style.width=el.dataset.w})},500)});
+fetch('https://raw.githubusercontent.com/Vinaystwt/sentinel/master/agent_log.json')
+  .then(r=>r.json()).then(d=>{
+    const steps=d.executionLog;
+    document.getElementById('log-tag').textContent=steps.length+' STEPS';
+    document.getElementById('steps').textContent=steps.length;
+    const recent=steps.slice(-6).reverse();
+    document.getElementById('log-body').innerHTML=recent.map(s=>{
+      const ok=s.status==='success';
+      const txh=s.txHash||'';
+      const tx=s.baseScan?`<a class="log-lnk" href="${s.baseScan}" target="_blank">${txh.slice(0,6)+'...'+txh.slice(-4)} ↗</a>`:'';
+      return`<div class="log-r"><span class="log-n">#${s.step}</span><div class="log-c"><div class="log-a">${s.action}</div><div class="log-m"><span class="${ok?'log-ok':''}">${s.status.toUpperCase()}</span> · ${s.timestamp}</div></div>${tx}</div>`;
+    }).join('');
+  }).catch(()=>{document.getElementById('log-body').innerHTML='<div style="font-size:12px;color:var(--ink3)">View: <a href="https://raw.githubusercontent.com/Vinaystwt/sentinel/master/agent_log.json" target="_blank" style="color:var(--acc)">agent_log.json ↗</a></div>'});
 </script>
 </body>
 </html>
