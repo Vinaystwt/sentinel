@@ -121,3 +121,32 @@ The flow works like this:
 - Real swap that required shadow proof: `0xe8b337617cb337aa456b9576ba0e05dfd651aa9b51a940c9b00449b8ded3b9dd`
 
 The proofHash in `sample-attestation.json` is the data artifact connecting all three transactions. This is the security model: proof of computation is chain-agnostic, enforcement of that proof is chain-specific.
+
+---
+
+## Proof Hash Verification — Important Note
+
+**On sample-attestation.json vs onchain hashes:**
+
+The `proofHash` in `proofs/sample-attestation.json` is generated fresh each time the container runs — it includes a timestamp and a random nonce, so every execution produces a unique hash by design. This is correct TEE behavior: replay attacks are prevented by the nonce.
+
+The shadow proof registered in Base mainnet TX `0x186d7b4f1dd5cd337168c897581a90234bfb67df0b349aa9208e0e7930d84753` contains the hash from the actual production run that authorized the real Uniswap swap. The sample-attestation.json shows the format and structure — the value differs because it is a different execution with a different nonce and timestamp.
+
+**To verify format matches:**
+1. Run the container locally: `docker run -p 8080:8080 vinaystwt/sentinel-simulation:latest`
+2. POST to `/simulate` — observe the `proofHash` structure (0x + 64 hex chars)
+3. Compare structure against slot [0] of TX `0x186d7b4f...` calldata on BaseScan
+4. Format is identical — only the nonce-derived value differs per execution
+
+**The onchain TX is the canonical proof. The sample JSON is the format reference.**
+
+**Verification command:**
+```bash
+docker pull vinaystwt/sentinel-simulation:latest
+docker run -p 8080:8080 vinaystwt/sentinel-simulation:latest
+# Second terminal:
+curl -s -X POST http://localhost:8080/simulate \
+  -H "Content-Type: application/json" \
+  -d '{"action_type":"REBALANCE","position_data":{"staked":"10.5 ETH"},"market_context":{"slashingRisk":42}}' \
+  | python3 -m json.tool
+```

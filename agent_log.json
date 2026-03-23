@@ -143,7 +143,10 @@
       "txHash": "0xe8b337617cb337aa456b9576ba0e05dfd651aa9b51a940c9b00449b8ded3b9dd",
       "baseScan": "https://basescan.org/tx/0xe8b337617cb337aa456b9576ba0e05dfd651aa9b51a940c9b00449b8ded3b9dd",
       "shadowProofTxHash": "0x186d7b4f1dd5cd337168c897581a90234bfb67df0b349aa9208e0e7930d84753",
-      "shadowProofBaseScan": "https://basescan.org/tx/0x186d7b4f1dd5cd337168c897581a90234bfb67df0b349aa9208e0e7930d84753"
+      "shadowProofBaseScan": "https://basescan.org/tx/0x186d7b4f1dd5cd337168c897581a90234bfb67df0b349aa9208e0e7930d84753",
+      "erc8004Receipt": "0x7d84c132ea189e8d6bc391bc209301dea531c5ec2136b5fb4b12539c9e038973",
+      "erc8004ReceiptBaseScan": "https://basescan.org/tx/0x7d84c132ea189e8d6bc391bc209301dea531c5ec2136b5fb4b12539c9e038973",
+      "note": "Real Uniswap swap gated by TEE shadow proof. ERC-8004 receipt written immediately after \u2014 permanent onchain record of this decision."
     },
     {
       "step": 12,
