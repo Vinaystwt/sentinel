@@ -200,5 +200,23 @@ async function fetchData() {
 fetchData();
 setInterval(fetchData, 30000);
 </script>
+
+<div id="agent-live" style="margin:20px 0;padding:16px;background:#0a0a0a;border:1px solid #1e293b;border-radius:8px;">
+  <div style="font-size:11px;color:#64748b;margin-bottom:8px;letter-spacing:0.1em;">LIVE EXECUTION LOG</div>
+  <div id="live-steps" style="font-size:12px;color:#94a3b8;">Loading...</div>
+</div>
+<script>
+fetch("https://raw.githubusercontent.com/Vinaystwt/sentinel/master/agent_log.json")
+  .then(r=>r.json())
+  .then(d=>{
+    const steps = d.executionLog.slice(-3).reverse();
+    document.getElementById("live-steps").innerHTML = steps.map(s=>{
+      const tx = s.baseScan ? "<a href=""+s.baseScan+"" target="_blank" style="color:#3b82f6;text-decoration:none;">BaseScan</a>" : "";
+      const status = s.status==="success" ? "<span style="color:#22c55e;">SUCCESS</span>" : "<span style="color:#f59e0b;">"+s.status+"</span>";
+      return "<div style="padding:6px 0;border-bottom:1px solid #1e293b;"><span style="color:#6366f1;">[Step "+s.step+"]</span> "+s.action+" &nbsp;"+status+" &nbsp;"+tx+"<br><span style="color:#475569;font-size:11px;">"+s.timestamp+"</span></div>";
+    }).join("");
+  })
+  .catch(()=>{ document.getElementById("live-steps").innerHTML="<span style="color:#ef4444;">Could not load — view directly on GitHub</span>"; });
+</script>
 </body>
 </html>
