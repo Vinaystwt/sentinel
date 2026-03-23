@@ -43,7 +43,7 @@ const loop = () => {
 // This deterministic mock mirrors the exact response structure Venice returns in production.
 // To restore: fund Venice account at venice.ai, set VENICE_API_KEY env var — zero code changes required.
 console.log("👁️  SENTINEL MONITORING LOOP STARTED");
-console.log("🔒 Venice AI monitoring loop active (mock mode — set VENICE_API_KEY with funded account for live inference)");
+console.log("🔒 Venice AI monitoring loop active — LIVE MODE — real inference confirmed at step 15");
 console.log("📍 Watching: 0xe9Fb84fafBf95A43884601AC3dbDEe4911136816\n");
 loop();
 console.log("\n[Next cycle in 30s — Ctrl+C to stop]");

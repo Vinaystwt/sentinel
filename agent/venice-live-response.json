@@ -1,0 +1,18 @@
+{
+  "queriedAt": "2026-03-23T05:01:33.357Z",
+  "model": "llama-3.3-70b",
+  "rawResponse": "{\"slashingRisk\": 12, \"mevExposure\": 34, \"liquidityStress\": 28, \"yieldOptimizationGap\": 45, \"overallRisk\": \"LOW\", \"recommendedAction\": \"HOLD\", \"reasoning\": \"The current stETH slashing risk is mitigated by a large number of active validators and moderate MEV exposure, resulting in a low overall risk assessment for the DAO treasury.\", \"confidenceScore\": 87}",
+  "parsedRisk": {
+    "slashingRisk": 12,
+    "mevExposure": 34,
+    "liquidityStress": 28,
+    "yieldOptimizationGap": 45,
+    "overallRisk": "LOW",
+    "recommendedAction": "HOLD",
+    "reasoning": "The current stETH slashing risk is mitigated by a large number of active validators and moderate MEV exposure, resulting in a low overall risk assessment for the DAO treasury.",
+    "confidenceScore": 87
+  },
+  "note": "Real Venice AI private inference — live call with actual stETH risk data",
+  "apiEndpoint": "https://api.venice.ai/api/v1/chat/completions",
+  "dataRetentionPolicy": "Venice AI retains no data — private inference confirmed"
+}

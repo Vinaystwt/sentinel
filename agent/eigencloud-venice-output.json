@@ -1,0 +1,29 @@
+{
+    "attestation": {
+        "approved": true,
+        "confidenceScore": 82,
+        "proofHash": "0x92c77a37aa209ba6ff98a65d29cd5758d512969e04a11a234dfa40e17c6a545d",
+        "recommendation": "EXECUTE",
+        "simulationResult": {
+            "bestCaseScenario": "Full yield optimization with zero MEV",
+            "confidenceScore": 82,
+            "expectedOutcome": "Rebalance optimizes yield routing through most efficient pool",
+            "expectedYieldImpact": "+0.25% APY",
+            "proposedAction": "REBALANCE",
+            "reasoning": "Risk-adjusted return favors execution.",
+            "recommendation": "EXECUTE",
+            "worstCaseProbability": 12,
+            "worstCaseScenario": "Slippage 0.3% higher than expected"
+        },
+        "strategyHash": "03e0c356e7b1d42d2d1aa9ef7086a4c97612a58cb33ccc94d9c9cdefb913967c",
+        "teeAttestation": {
+            "attestationType": "SGX-TEE",
+            "hardwareVerified": true,
+            "signedAt": 1774242165,
+            "simulationHash": "0x92c77a37aa209ba6ff98a65d29cd5758d512969e04a11a234dfa40e17c6a545d",
+            "teeProvider": "EigenCloud/EigenCompute",
+            "version": "eigencloud-v1.0"
+        }
+    },
+    "success": true
+}
