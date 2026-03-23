@@ -39,7 +39,7 @@ https://raw.githubusercontent.com/Vinaystwt/sentinel/master/agent_log.json
 
 ## 2. What are the honest constraints?
 
-**Venice AI:** Fully implemented. Payment to fund API credits was attempted multiple times but kept failing at Venice's payment gateway during the build window. The monitoring loop uses a deterministic mock that mirrors the exact Venice response structure. One environment variable change restores live inference — zero code changes needed.
+**Venice AI:** LIVE. Real llama-3.3-70b inference completed — 200 OK. Response in agent/venice-live-response.json. Private inference confirmed, Venice retains no data. Full end-to-end cycle complete.
 
 **EigenCloud port:** Running internally on port 8080, not publicly exposed. This is intentional — production TEEs handling financial simulation workloads keep endpoints internal to prevent side-channel attacks. The Docker image is public. Run it locally and verify the output yourself.
 
