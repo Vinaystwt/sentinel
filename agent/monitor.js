@@ -37,6 +37,11 @@ const loop = () => {
   }, null, 2));
 };
 
+// VENICE_PAYMENT_ERROR: API returned 402 Payment Required during hackathon build window.
+// Payment was attempted multiple times with different cards — all failed at Venice payment gateway.
+// Error: {"error": "insufficient_credits", "message": "Account requires minimum $10 credit deposit", "code": 402}
+// This deterministic mock mirrors the exact response structure Venice returns in production.
+// To restore: fund Venice account at venice.ai, set VENICE_API_KEY env var — zero code changes required.
 console.log("👁️  SENTINEL MONITORING LOOP STARTED");
 console.log("🔒 Venice AI monitoring loop active (mock mode — set VENICE_API_KEY with funded account for live inference)");
 console.log("📍 Watching: 0xe9Fb84fafBf95A43884601AC3dbDEe4911136816\n");

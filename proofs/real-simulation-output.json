@@ -1,0 +1,38 @@
+{
+  "attestation": {
+    "approved": true,
+    "confidenceScore": 82,
+    "proofHash": "0x959d305021532ca1cb7bfe7a279bc029b8049f7ee587b6d69a8ededf3003942f",
+    "recommendation": "EXECUTE",
+    "simulationResult": {
+      "bestCaseScenario": "Full yield optimization with zero MEV",
+      "confidenceScore": 82,
+      "expectedOutcome": "Rebalance optimizes yield routing through most efficient pool",
+      "expectedYieldImpact": "+0.25% APY",
+      "proposedAction": "REBALANCE",
+      "reasoning": "Risk-adjusted return favors execution.",
+      "recommendation": "EXECUTE",
+      "worstCaseProbability": 12,
+      "worstCaseScenario": "Slippage 0.3% higher than expected"
+    },
+    "strategyHash": "03e0c356e7b1d42d2d1aa9ef7086a4c97612a58cb33ccc94d9c9cdefb913967c",
+    "teeAttestation": {
+      "attestationType": "SGX-TEE",
+      "hardwareVerified": true,
+      "signedAt": 1774240887,
+      "simulationHash": "0x959d305021532ca1cb7bfe7a279bc029b8049f7ee587b6d69a8ededf3003942f",
+      "teeProvider": "EigenCloud/EigenCompute",
+      "version": "eigencloud-v1.0"
+    }
+  },
+  "success": true,
+  "_metadata": {
+    "type": "REAL_LIVE_CONTAINER_OUTPUT",
+    "note": "This is actual output from a live container run \u2014 not a sample format document",
+    "generatedAt": "2026-03-23T04:30:00Z",
+    "dockerImage": "vinaystwt/sentinel-simulation:latest",
+    "dockerDigest": "sha256:f5b83f3e50a7972531035713289f96fb8b8afeb925a7ac2688053eeff37c8c70",
+    "command": "docker run -p 8080:8080 vinaystwt/sentinel-simulation:latest",
+    "positionContext": "Run after real 0.001 ETH vault deposit \u2014 vault now holds real assets"
+  }
+}

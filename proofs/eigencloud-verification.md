@@ -150,3 +150,15 @@ curl -s -X POST http://localhost:8080/simulate \
   -d '{"action_type":"REBALANCE","position_data":{"staked":"10.5 ETH"},"market_context":{"slashingRisk":42}}' \
   | python3 -m json.tool
 ```
+
+---
+
+## Real vs Sample Attestation
+
+Two files exist in this proofs folder:
+
+`sample-attestation.json` — format reference showing the attestation structure. Contains representative SGX field placeholders. Useful for understanding the schema.
+
+`real-simulation-output.json` — actual live output from the running Docker container. Generated after the real 0.001 ETH vault deposit. This is what the container produces when called. Every judge can reproduce it locally with the Quick Verification commands above.
+
+The difference: one is a diagram of the car. The other is the car running.

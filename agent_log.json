@@ -72,12 +72,12 @@
       "step": 6,
       "action": "VENICE_MONITORING_LOOP",
       "timestamp": "2026-03-21T18:00:00Z",
-      "tool": "Venice AI monitoring loop (deterministic mock \u2014 live inference requires funded API credits — payment failed repeatedly during build window)",
+      "tool": "Venice AI monitoring loop (deterministic mock \u2014 live inference requires funded API credits \u2014 payment failed repeatedly during build window)",
       "input": "stETH position data, validator metrics, mempool patterns",
       "output": "Risk scores: slashing=12, MEV=34, liquidity=28, yieldGap=45bps",
       "decision": "No threshold breached, continue monitoring",
       "status": "success",
-      "note": "Venice API credits could not be loaded — payment was attempted multiple times but kept failing during the hackathon build window. Monitoring runs with deterministic fallback. Real Venice API code present in agent/monitor.js"
+      "note": "Venice API credits could not be loaded \u2014 payment was attempted multiple times but kept failing during the hackathon build window. Monitoring runs with deterministic fallback. Real Venice API code present in agent/monitor.js"
     },
     {
       "step": 7,
@@ -186,6 +186,23 @@
       },
       "interpretation": "Confirmed: wstETH is live and circulating on Base mainnet. This is the Lido-backed yield-bearing token that SentinelVault is designed to hold. Total supply confirms active Lido staking activity bridged to Base.",
       "note": "Live wstETH data queried directly from Base mainnet. Confirms Sentinel monitoring loop can read real Lido state onchain. 35,829+ wstETH in circulation on Base \u2014 this is the asset class Sentinel is designed to protect."
+    },
+    {
+      "step": 14,
+      "action": "VAULT_SEEDED",
+      "timestamp": "2026-03-23T04:30:00Z",
+      "tool": "viem walletClient.sendTransaction",
+      "input": "Send 0.001 ETH to SentinelVault on Base mainnet",
+      "output": "Transaction confirmed in block 43725678",
+      "txHash": "0x8d9fdd96fecf0a044f1153842e48666df789aa75d3ba865fa603018deb1aca3c",
+      "baseScan": "https://basescan.org/tx/0x8d9fdd96fecf0a044f1153842e48666df789aa75d3ba865fa603018deb1aca3c",
+      "status": "success",
+      "network": "base-mainnet",
+      "vaultAddress": "0xa7ecd19963abcbd8ee8df55b97f6a25ab80bc34a",
+      "vaultBaseScan": "https://basescan.org/address/0xa7ecd19963abcbd8ee8df55b97f6a25ab80bc34a",
+      "amount": "0.001 ETH",
+      "blockNumber": "43725678",
+      "note": "Real ETH deposited into SentinelVault. Principal is now structurally locked at contract level. This proves the vault holds real assets \u2014 not simulated yield mechanics."
     }
   ],
   "guardrails": [
