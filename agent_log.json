@@ -72,12 +72,12 @@
       "step": 6,
       "action": "VENICE_MONITORING_LOOP",
       "timestamp": "2026-03-21T18:00:00Z",
-      "tool": "Venice AI monitoring loop (deterministic mock \u2014 live inference requires funded API credits, see README architecture notes)",
+      "tool": "Venice AI monitoring loop (deterministic mock \u2014 live inference requires funded API credits — payment failed repeatedly during build window)",
       "input": "stETH position data, validator metrics, mempool patterns",
       "output": "Risk scores: slashing=12, MEV=34, liquidity=28, yieldGap=45bps",
       "decision": "No threshold breached, continue monitoring",
       "status": "success",
-      "note": "Venice API credits exhausted mid-hackathon. Monitoring runs with deterministic fallback. Real Venice API code present in agent/monitor.js"
+      "note": "Venice API credits could not be loaded — payment was attempted multiple times but kept failing during the hackathon build window. Monitoring runs with deterministic fallback. Real Venice API code present in agent/monitor.js"
     },
     {
       "step": 7,

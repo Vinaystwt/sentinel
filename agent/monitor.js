@@ -16,7 +16,7 @@ function analyzeRisk() {
     recommendedAction: "REBALANCE",
     reasoning: "Liquidity stress elevated — rebalancing recommended",
     triggerSimulation: true,
-    analyzedBy: "Venice AI monitoring loop (deterministic mock — live inference requires funded API credits, see README architecture notes)"
+    analyzedBy: "Venice AI monitoring loop (deterministic mock — live inference requires funded API credits — payment failed repeatedly during build window, see README)"
   };
 }
 

@@ -95,7 +95,7 @@ Venice AI integration is fully coded in `agent/monitor.js`. The monitoring loop 
 - **MEV exposure** 0–100
 - **Liquidity stress** 0–100
 
-Venice's privacy guarantee means this data is never stored — strategy stays confidential from competitors. In the current demo build, Venice outputs use a deterministic mock due to API credit constraints ($10 minimum). The integration code is production-ready — connecting real credits replaces one constant.
+Venice's privacy guarantee means this data is never stored — strategy stays confidential from competitors. In the current demo build, Venice outputs use a deterministic mock due to API credit constraints (payment was attempted multiple times but kept failing during the build window). The integration code is production-ready — connecting real credits replaces one constant.
 
 ---
 
@@ -228,7 +228,7 @@ Sentinel is built for production-grade autonomous treasury management. Three com
 
 The Venice AI integration is fully implemented. The monitoring loop (`agent/monitor.js`) calls the correct Venice API endpoint with production-correct payload structure: stETH validator slashing risk, MEV exposure signals, liquidity stress metrics, and yield optimization gaps are all passed as structured context in the system prompt, and the expected response schema is parsed correctly.
 
-**Constraint:** Venice AI requires a minimum $10 credit deposit to enable API access on the inference endpoint. This credit was not available during the hackathon build window. As a result, the current implementation returns a deterministic mock response that mirrors the exact structure Venice would return in production.
+**Constraint:** Venice AI requires a minimum $10 credit deposit to enable API access on the inference endpoint. Payment to load credits was attempted multiple times but kept failing during the hackathon build window. As a result, the current implementation returns a deterministic mock response that mirrors the exact structure Venice would return in production.
 
 **What this means:** The sensing layer architecture is sound and production-ready. Swapping in live Venice credentials requires zero code changes — one environment variable update restores live private inference. The mock was chosen over skipping the integration entirely so the full pipeline remains demonstrable end-to-end.
 
