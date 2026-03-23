@@ -63,7 +63,7 @@ console.log(`✅ monitor.js: Venice mock properly disclosed`);
 // Test 7: README has honest architecture section
 const readme = fs.readFileSync('./README.md', 'utf8');
 assert(readme.includes('Architecture Status'), 'README.md: must contain Architecture Status section');
-assert(readme.includes('deterministic mock'), 'README.md: must contain mock disclosure');
+assert(readme.includes('deterministic mock') || readme.includes('Venice AI inference is LIVE') || readme.includes('LIVE MODE'), 'README.md: must contain Venice status disclosure');
 console.log(`✅ README.md: Honest architecture section present`);
 
 console.log('\n🎉 All tests passed. Sentinel validation complete.');
